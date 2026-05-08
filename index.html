@@ -16,7 +16,13 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Roboto',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
   header{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
-  .logo{font-family:'Roboto',sans-serif;font-size:1rem;font-weight:500;color:white;letter-spacing:0.3px;}
+
+  /* ── LOGO AREA ── */
+  .header-brand{display:flex;align-items:center;gap:14px;}
+  .header-logo svg{display:block;height:22px;width:auto;}
+  .header-divider{width:1px;height:28px;background:rgba(255,255,255,0.25);}
+  .logo{font-family:'Roboto',sans-serif;font-size:0.88rem;font-weight:400;color:rgba(255,255,255,0.75);letter-spacing:0.3px;white-space:nowrap;}
+
   .step-pills{display:flex;gap:6px;}
   .pill{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:600;font-family:'Roboto Mono',monospace;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);transition:all 0.3s;cursor:pointer;}
   .pill.active{background:var(--teal);color:white;}
@@ -28,24 +34,28 @@
   .step-label.auto{color:var(--auto);}
   .step-title{font-family:'Roboto',sans-serif;font-size:2rem;font-weight:300;color:var(--navy);line-height:1.15;margin-bottom:8px;}
   .step-desc{font-size:0.9rem;color:var(--mid);line-height:1.6;}
+
+  /* ── ISSA DISCLAIMER ── */
+  .issa-disclaimer{display:flex;align-items:flex-start;gap:10px;background:#F0F4F8;border:1px solid #C8D8E8;border-left:3px solid var(--teal);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:0.78rem;color:var(--mid);line-height:1.5;}
+  .issa-disclaimer .issa-icon{font-size:0.9rem;flex-shrink:0;margin-top:1px;}
+  .issa-disclaimer strong{color:var(--navy);}
+
   .card{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px;box-shadow:var(--shadow);}
   .card-title{font-size:0.78rem;font-weight:600;font-family:'Roboto Mono',monospace;text-transform:uppercase;letter-spacing:1px;color:var(--mid);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-
-  /* ── PAIR BLOCKS — overflow fix ── */
   .pair-block{border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;background:white;position:relative;z-index:1;}
   .pair-block:focus-within{z-index:30;}
   .pair-block .pair-num{font-family:'Roboto Mono',monospace;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--mid);margin-bottom:14px;}
   .pair-remove{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--mid);cursor:pointer;font-size:1.1rem;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.2s,background 0.2s;}
   .pair-remove:hover{color:var(--red);background:#FEE2E2;}
-
-  /* ── PROC ROW — the key overflow fix ──
-     min-width:0 on children forces grid cells to shrink rather than overflow */
   .proc-row{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;margin-bottom:0;}
   .proc-row > div{min-width:0;position:relative;z-index:10;}
   .proc-row > div:focus-within{z-index:20;}
   .proc-row select,.proc-row input{width:100%;min-width:0;}
 
-  /* Savings callout */
+  /* ── TOOLTIP ── */
+  .tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:5px;cursor:default;}
+  .tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--teal);color:white;font-size:0.65rem;font-weight:700;font-family:'Roboto',sans-serif;cursor:pointer;flex-shrink:0;line-height:1;}
+
   .savings-callout{background:#1A2533;border-radius:12px;padding:24px 28px;margin-top:20px;margin-bottom:4px;}
   .savings-callout-title{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.5);font-family:'Roboto Mono',monospace;margin-bottom:16px;}
   .savings-callout-rows{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -65,7 +75,6 @@
   .sc-net-val{font-family:'Roboto Mono',monospace;font-size:1.2rem;font-weight:700;}
   .sc-net.win .sc-net-val{color:#4ADE80;}
   .sc-net.loss .sc-net-val{color:#FCA5A5;}
-
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   .form-grid.three{grid-template-columns:1fr 1fr 1fr;}
   @media(max-width:600px){.form-grid,.form-grid.three{grid-template-columns:1fr;}}
@@ -85,8 +94,6 @@
   .rider-row label{font-size:0.85rem;flex:1;}
   .rider-row input[type="range"]{flex:1;accent-color:var(--teal);}
   .rider-row .val{font-family:'Roboto Mono',monospace;font-size:0.9rem;font-weight:500;color:var(--teal);min-width:40px;text-align:right;}
-
-  /* ── AUTONOMOUS STEP ── */
   .auto-card{background:var(--warm-white);border:2px solid var(--auto);border-radius:12px;padding:28px;margin-bottom:16px;box-shadow:var(--shadow);}
   .auto-card-title{font-size:0.78rem;font-weight:600;font-family:'Roboto Mono',monospace;text-transform:uppercase;letter-spacing:1px;color:var(--auto);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #DDD6FE;}
   .auto-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.7rem;font-family:'Roboto Mono',monospace;background:#EDE9FE;color:var(--auto);border:1px solid #C4B5FD;border-radius:20px;padding:4px 10px;margin-bottom:16px;}
@@ -113,7 +120,6 @@
   .auto-comp-card.autonomous .auto-comp-label{color:var(--auto);}
   .auto-comp-val{font-family:'Roboto Mono',monospace;font-size:0.9rem;font-weight:500;color:var(--navy);}
   .auto-comp-sub{font-size:0.75rem;color:var(--mid);margin-top:4px;}
-
   .tasks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .task-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:white;transition:border-color 0.2s;}
   .task-row:focus-within{border-color:var(--teal);}
@@ -170,7 +176,6 @@
   .payback-good{color:#065F46;}
   .payback-ok{color:#92400E;}
   .payback-warn{color:#991B1B;}
-  /* loading */
   .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
   .loading-text{font-size:0.9rem;color:var(--mid);font-family:'Roboto Mono',monospace;}
@@ -185,7 +190,6 @@
   .data-badge .dot{width:6px;height:6px;border-radius:50%;background:#22C55E;flex-shrink:0;}
   .data-badge .dot.warn{background:var(--gold);}
   .warn-banner{background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;color:#92400E;}
-  /* audit accordion */
   .calc-accordion{margin-top:16px;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;}
   .calc-accordion-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;cursor:pointer;background:var(--warm-white);user-select:none;transition:background 0.2s;}
   .calc-accordion-header:hover{background:#E8EDF2;}
@@ -219,12 +223,23 @@
 </head>
 <body>
 <header>
-  <div class="logo">Productivity Enhancement Program (PEP)</div>
+  <!-- Brand: Nilfisk logo SVG + divider + app name -->
+  <div class="header-brand">
+    <div class="header-logo">
+      <!-- Nilfisk wordmark as inline SVG — renders perfectly on any background -->
+      <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" aria-label="Nilfisk">
+        <text x="0" y="30" font-family="'Roboto',Arial,sans-serif" font-size="30" font-weight="700" letter-spacing="4" fill="white">NILFISK</text>
+      </svg>
+    </div>
+    <div class="header-divider"></div>
+    <div class="logo">Productivity Enhancement Program (PEP)</div>
+  </div>
   <div class="step-pills" id="stepPills"></div>
 </header>
 <div class="shell" id="app"></div>
+<!-- Single shared tooltip — appended to body, outside ALL stacking contexts -->
+<div id="globalTooltip" style="display:none;position:fixed;z-index:2147483647;width:420px;background:#1A2533;color:white;font-size:0.78rem;font-family:'Roboto',sans-serif;font-weight:400;line-height:1.5;padding:10px 14px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.35);pointer-events:none;"></div>
 <script>
-// ─── SHEETS CONFIG ───────────────────────────────────────────────────────────
 const SHEETS = {
   equipment:'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAicc4wFb8Hz_szUiRFYpimvZ1y97K5P_2qhKXM5XTiOwFW2AcxXoYQnJ-WjqY2Z81eze6wZOcvDWM/pub?gid=0&single=true&output=csv',
   tasks:    'https://docs.google.com/spreadsheets/d/e/2PACX-1vTAicc4wFb8Hz_szUiRFYpimvZ1y97K5P_2qhKXM5XTiOwFW2AcxXoYQnJ-WjqY2Z81eze6wZOcvDWM/pub?gid=662507507&single=true&output=csv',
@@ -232,7 +247,6 @@ const SHEETS = {
 };
 const CORS_PROXY='https://api.allorigins.win/raw?url=';
 
-// ─── CSV / DATA ───────────────────────────────────────────────────────────────
 function parseCSV(text){
   const lines=text.trim().split(/\r?\n/);
   if(lines.length<2)return[];
@@ -271,8 +285,8 @@ function joinEquipmentRates(eqRows,rateRows){
     const rate=rateMap[key]||{sqft:0,mins:0};
     const mins=rate.mins||(rate.sqft>0?60000/rate.sqft:0);
     map[cat].push({
-      size:r.size, model:r.model||'',
-      sqft:rate.sqft, mins:parseFloat(mins.toFixed(4)),
+      size:r.size,model:r.model||'',
+      sqft:rate.sqft,mins:parseFloat(mins.toFixed(4)),
       is_rider:isTrue(r.is_rider),
       is_autonomous:isTrue(r.is_autonomous),
     });
@@ -281,10 +295,8 @@ function joinEquipmentRates(eqRows,rateRows){
 }
 function makeKey(cat,size){return(cat+'|||'+size).toLowerCase().trim();}
 
-// ─── LIVE DATA ────────────────────────────────────────────────────────────────
 let EQUIPMENT={},TASKS=[],dataSource='loading',dataWarnings=[];
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
 const state={
   step:1,
   contactPerson:'',facilityName:'',address:'',city:'',stateAbbr:'',zip:'',
@@ -293,39 +305,20 @@ const state={
   pctMfg:'',pctOffice:'',pctCarpet:'',pctTile:'',pctConcrete:'',pctOther:'',
   pairs:[{existingCategory:'',existingEquipIdx:-1,prescribedCategory:'',prescribedEquipIdx:-1,sqFt:60000,cleaningsPerPeriod:7}],
   period:'Week',riderBonus:25,
-  // Autonomous step state
-  autoSupervisionPct:15,        // % of machine run time operator must be present
-  autoMaintenanceHrs:0.75,      // daily prep/refill/end-of-day hours
-  autoCleaningsPerPeriod:5,     // how many autonomous runs per period
-  autoSqFtPerRun:40000,         // sq ft per autonomous run
+  autoSupervisionPct:15,autoMaintenanceHrs:0.75,autoCleaningsPerPeriod:5,autoSqFtPerRun:40000,
   hourlyLaborRate:18,weeks:52,machineInvestment:0,machineLife:5,leasePayment:0,
   taskHours:{},
   proposalItems:[{qty:'',desc:'',order:'',unitCost:''},{qty:'',desc:'',order:'',unitCost:''},{qty:'',desc:'',order:'',unitCost:''}],
 };
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
 function getEquip(cat,idx){if(!cat||idx<0||!EQUIPMENT[cat])return null;return EQUIPMENT[cat][idx]||null;}
-function hasAutonomousPrescribed(){
-  return state.pairs.some(p=>{
-    const pr=getEquip(p.prescribedCategory,p.prescribedEquipIdx);
-    return pr&&pr.is_autonomous;
-  });
-}
+function hasAutonomousPrescribed(){return state.pairs.some(p=>{const pr=getEquip(p.prescribedCategory,p.prescribedEquipIdx);return pr&&pr.is_autonomous;});}
 function totalSteps(){return hasAutonomousPrescribed()?6:5;}
-function stepLabel(s){
-  // s is the internal logical step; map to display number
-  if(!hasAutonomousPrescribed()){
-    const labels=['','01','02','03','04','05'];
-    const names=['','Facility','Procedures','Payback','Tasks','Proposal'];
-    return{num:labels[s],name:names[s],total:'05'};
-  }
-  // With auto step: 1=Facility,2=Procedures,3=Autonomous,4=Payback,5=Tasks,6=Proposal
-  const labels=['','01','02','02b','03','04','05'];
-  const names=['','Facility','Procedures','Autonomous','Payback','Tasks','Proposal'];
-  return{num:labels[s],name:names[s],total:'05'};
-}
+function maxStep(){return hasAutonomousPrescribed()?6:5;}
+function getPaybackStep(){return hasAutonomousPrescribed()?4:3;}
+function getTaskStep(){return hasAutonomousPrescribed()?5:4;}
+function getProposalStep(){return hasAutonomousPrescribed()?6:5;}
 
-// ─── CALC ────────────────────────────────────────────────────────────────────
 function calcPair(pair){
   const ex=getEquip(pair.existingCategory,pair.existingEquipIdx);
   const pr=getEquip(pair.prescribedCategory,pair.prescribedEquipIdx);
@@ -337,57 +330,33 @@ function calcPair(pair){
   const savings=exTime-prTime;
   const savingsPct=exTime>0?savings/exTime:0;
   const isRider=pr&&(pr.is_rider||(pr.size||'').toLowerCase().includes('r,'));
-  // Autonomous machines: no rider bonus — savings come via supervision calc on dedicated step
   const adjSavings=(isRider&&!pr?.is_autonomous)?savings*(1+riderPct):savings;
   const timePerPeriod=adjSavings*cleanings;
   return{ex,pr,exTime,prTime,savingsPerCleaning:adjSavings,savingsPct,timePerPeriod};
 }
 
 function calcAuto(){
-  // Find the first autonomous prescribed machine to get its sqft/hr
   let autoEquip=null;
-  for(const p of state.pairs){
-    const pr=getEquip(p.prescribedCategory,p.prescribedEquipIdx);
-    if(pr&&pr.is_autonomous){autoEquip=pr;break;}
-  }
+  for(const p of state.pairs){const pr=getEquip(p.prescribedCategory,p.prescribedEquipIdx);if(pr&&pr.is_autonomous){autoEquip=pr;break;}}
   const sqftPerHr=autoEquip?autoEquip.sqft:9000;
   const sqFtPerRun=parseFloat(state.autoSqFtPerRun)||0;
   const cleaningsPerPeriod=parseFloat(state.autoCleaningsPerPeriod)||0;
   const supervisionPct=parseFloat(state.autoSupervisionPct)/100;
   const maintenanceHrs=parseFloat(state.autoMaintenanceHrs)||0;
-
-  // Machine run time per cleaning
-  const machineRunTime=sqftPerHr>0?sqFtPerRun/sqftPerHr:0; // hours
-  // Operator time per cleaning = supervision + (maintenance per cleaning)
-  // maintenance is daily, so per-cleaning = daily/cleanings per day (assume ~1 run/day approx)
+  const machineRunTime=sqftPerHr>0?sqFtPerRun/sqftPerHr:0;
   const supervisionTimePerCleaning=machineRunTime*supervisionPct;
-  const maintenancePerCleaning=maintenanceHrs; // input is already per-cleaning/per-run
+  const maintenancePerCleaning=maintenanceHrs;
   const operatorTimePerCleaning=supervisionTimePerCleaning+maintenancePerCleaning;
-
-  // What would a conventional operator take for the same area?
-  // Use existing pair's manual time if available, else estimate from 32oz mop as baseline
   let conventionalTimePerCleaning=0;
   for(const p of state.pairs){
     const ex=getEquip(p.existingCategory,p.existingEquipIdx);
     const pr=getEquip(p.prescribedCategory,p.prescribedEquipIdx);
-    if(ex&&pr&&pr.is_autonomous){
-      conventionalTimePerCleaning+=(ex.mins*sqFtPerRun/1000)/60;
-    }
+    if(ex&&pr&&pr.is_autonomous){conventionalTimePerCleaning+=(ex.mins*sqFtPerRun/1000)/60;}
   }
-  if(conventionalTimePerCleaning===0){
-    // fallback: estimate from sqft at typical manual scrub rate (20oz mop ~23 min/1000sqft)
-    conventionalTimePerCleaning=(23*sqFtPerRun/1000)/60;
-  }
-
+  if(conventionalTimePerCleaning===0){conventionalTimePerCleaning=(23*sqFtPerRun/1000)/60;}
   const laborSavedPerCleaning=conventionalTimePerCleaning-operatorTimePerCleaning;
   const laborSavedPerPeriod=laborSavedPerCleaning*cleaningsPerPeriod;
-
-  return{
-    autoEquip,sqftPerHr,machineRunTime,supervisionTimePerCleaning,
-    maintenancePerCleaning,operatorTimePerCleaning,
-    conventionalTimePerCleaning,laborSavedPerCleaning,laborSavedPerPeriod,
-    cleaningsPerPeriod,sqFtPerRun,
-  };
+  return{autoEquip,sqftPerHr,machineRunTime,supervisionTimePerCleaning,maintenancePerCleaning,operatorTimePerCleaning,conventionalTimePerCleaning,laborSavedPerCleaning,laborSavedPerPeriod,cleaningsPerPeriod,sqFtPerRun};
 }
 
 function calc(){
@@ -395,22 +364,12 @@ function calc(){
   const weeks=parseFloat(state.weeks)||52;
   const investment=parseFloat(state.machineInvestment)||0;
   const machineLife=parseFloat(state.machineLife)||5;
-
   let totalTimePerPeriod=0,totalSavingsPct=0,pairCount=0;
   state.pairs.forEach(pair=>{
     const p=calcPair(pair);
-    if(p.ex&&p.pr&&!p.pr.is_autonomous){
-      totalTimePerPeriod+=p.timePerPeriod;
-      totalSavingsPct+=p.savingsPct;
-      pairCount++;
-    }
+    if(p.ex&&p.pr&&!p.pr.is_autonomous){totalTimePerPeriod+=p.timePerPeriod;totalSavingsPct+=p.savingsPct;pairCount++;}
   });
-  // Add autonomous labor savings if step was configured
-  if(hasAutonomousPrescribed()){
-    const a=calcAuto();
-    totalTimePerPeriod+=a.laborSavedPerPeriod;
-    pairCount++;
-  }
+  if(hasAutonomousPrescribed()){const a=calcAuto();totalTimePerPeriod+=a.laborSavedPerPeriod;pairCount++;}
   const avgSavingsPct=pairCount>0?totalSavingsPct/pairCount:0;
   const laborPerPeriod=totalTimePerPeriod*laborRate;
   const annualSavings=laborPerPeriod*(state.period==='Week'?weeks:1);
@@ -418,12 +377,7 @@ function calc(){
   const totalSavings=annualSavings*machineLife;
   const savingsPerMonth=annualSavings/12;
   const totalTaskHours=Object.values(state.taskHours).reduce((s,v)=>s+(parseFloat(v)||0),0);
-  return{
-    totalTimePerPeriod,avgSavingsPct,laborPerPeriod,annualSavings,
-    paybackYears,totalSavings,savingsPerMonth,
-    totalTaskHours,hoursRemaining:totalTimePerPeriod-totalTaskHours,
-    proposalTotal:state.proposalItems.reduce((s,i)=>s+(parseFloat(i.qty)||0)*(parseFloat(i.unitCost)||0),0),
-  };
+  return{totalTimePerPeriod,avgSavingsPct,laborPerPeriod,annualSavings,paybackYears,totalSavings,savingsPerMonth,totalTaskHours,hoursRemaining:totalTimePerPeriod-totalTaskHours,proposalTotal:state.proposalItems.reduce((s,i)=>s+(parseFloat(i.qty)||0)*(parseFloat(i.unitCost)||0),0)};
 }
 
 function fmtC(v){if(!isFinite(v))return'—';return'$'+v.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});}
@@ -432,23 +386,13 @@ function fmtY(v){if(!isFinite(v)||isNaN(v)||v<=0)return'—';return v.toFixed(1)
 function fmtP(v){if(!isFinite(v)||isNaN(v))return'—';return(v*100).toFixed(1)+'%';}
 function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// ─── STEP NAVIGATION ─────────────────────────────────────────────────────────
-// Internal steps: 1=Facility,2=Procedures,[3=Autonomous if applicable],
-//                 then Payback,Tasks,Proposal
-// We map logical steps to avoid renumbering everything
-function logicalToView(s){
-  // If no autonomous, steps 1-5 map directly
-  if(!hasAutonomousPrescribed()) return s;
-  // With autonomous: 1,2,3(auto),4,5,6
-  return s;
-}
-function maxStep(){return hasAutonomousPrescribed()?6:5;}
-function stepAfterProcedures(){return hasAutonomousPrescribed()?3:3;}// payback is always 3 without auto, 4 with
-function getPaybackStep(){return hasAutonomousPrescribed()?4:3;}
-function getTaskStep(){return hasAutonomousPrescribed()?5:4;}
-function getProposalStep(){return hasAutonomousPrescribed()?6:5;}
+// ISSA disclaimer HTML — reused on Step 2
+const ISSA_DISCLAIMER = `<div class="issa-disclaimer"><span class="issa-icon">ℹ</span><span><strong>Cleaning time source:</strong> Production rates are based on ISSA 612 Cleaning Times &amp; Tasks Calculator (Practical performance values). Actual results may vary based on facility conditions, operator proficiency, and equipment maintenance.</span></div>`;
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
+// Rider tooltip HTML
+const RIDER_TIP_TEXT = `Rider scrubbers outperform walk-behind machines not just because of machine speed — the operator is seated and experiences reduced fatigue compared to an operator using a walk-behind scrubber. This allows the operator to have more energy for other tasks. A rider operator also maintains consistent pace from the first pass to the last. ISSA production rates for riders already reflect their higher speed, but real-world throughput — especially in longer shifts or large-area cleans — routinely exceeds published figures. This bonus (0–50%) applies an additional productivity factor on top of the ISSA rate. Default is 25%. Set to 0% to use the ISSA rate as-is.`;
+const RIDER_TOOLTIP = `<span class="tooltip-wrap"><span class="tooltip-icon" data-tip="${RIDER_TIP_TEXT}">?</span></span>`;
+
 function render(){
   renderPills();
   const app=document.getElementById('app');
@@ -471,7 +415,7 @@ function renderPills(){
   document.getElementById('stepPills').innerHTML=pills.map((p,i)=>{
     const s=i+1;
     const cls=s===state.step?'pill active '+(p.cls||''):s<state.step?'pill done':'pill '+(p.cls||'');
-    return '<div class="'+cls.trim()+'" onclick="goStep('+s+')" title="'+p.t+'">'+p.l+'</div>';
+    return'<div class="'+cls.trim()+'" onclick="goStep('+s+')" title="'+p.t+'">'+p.l+'</div>';
   }).join('');
 }
 
@@ -482,13 +426,11 @@ function dataBadge(){
 }
 function warningBanners(){return dataWarnings.map(w=>'<div class="warn-banner">⚠ '+esc(w)+'</div>').join('');}
 
-// ── STEP 1 ────────────────────────────────────────────────────────────────────
 function renderStep1(){
   const tot=totalSteps();
-  return '<div class="step-header"><div class="step-label">Step 01 of 0'+tot+'</div><div class="step-title">Facility Background</div><div class="step-desc">Enter customer and facility information.</div>'+dataBadge()+'</div>'+warningBanners()+'<div class="card"><div class="card-title">Contact Information</div><div class="form-grid"><div class="field"><label>Facility Name</label><input id="facilityName" value="'+esc(state.facilityName)+'" placeholder="ABC Manufacturing Co."></div><div class="field"><label>Contact Person</label><input id="contactPerson" value="'+esc(state.contactPerson)+'" placeholder="Jane Smith"></div><div class="field"><label>Street Address</label><input id="address" value="'+esc(state.address)+'" placeholder="123 Industrial Blvd"></div><div class="field"><label>City</label><input id="city" value="'+esc(state.city)+'" placeholder="Chicago"></div><div class="field"><label>State</label><input id="stateAbbr" value="'+esc(state.stateAbbr)+'" placeholder="IL" maxlength="2"></div><div class="field"><label>ZIP</label><input id="zip" value="'+esc(state.zip)+'" placeholder="60601"></div></div></div><div class="card"><div class="card-title">Sales Rep Information</div><div class="form-grid"><div class="field"><label>Prepared By</label><input id="preparedBy" value="'+esc(state.preparedBy)+'" placeholder="Rep Name"></div><div class="field"><label>Dealership</label><input id="dealership" value="'+esc(state.dealership)+'" placeholder="Nilfisk Americas"></div><div class="field"><label>Date</label><input id="date" value="'+esc(state.date)+'" placeholder="MM/DD/YYYY"></div><div class="field"><label>Occupancy Type</label><input id="occupancy" value="'+esc(state.occupancy)+'" placeholder="Manufacturing / Office / Healthcare…"></div></div></div><div class="card"><div class="card-title">Building Description</div><div class="form-grid three"><div class="field"><label>Total Sq Ft</label><input type="number" id="totalSqFt" value="'+esc(state.totalSqFt)+'" placeholder="80000"></div><div class="field"><label>Total Cleanable Sq Ft</label><input type="number" id="totalCleanable" value="'+esc(state.totalCleanable)+'" placeholder="60000"></div><div class="field"></div></div><div class="divider"></div><div style="font-size:0.78rem;font-weight:600;color:var(--mid);margin-bottom:14px;font-family:\'Roboto Mono\',monospace;text-transform:uppercase;letter-spacing:1px;">Floor Type Mix (%)</div><div class="form-grid three"><div class="field"><label>Manufacturing</label><input type="number" id="pctMfg" value="'+esc(state.pctMfg)+'" placeholder="0"></div><div class="field"><label>Office</label><input type="number" id="pctOffice" value="'+esc(state.pctOffice)+'" placeholder="0"></div><div class="field"><label>Carpet</label><input type="number" id="pctCarpet" value="'+esc(state.pctCarpet)+'" placeholder="0"></div><div class="field"><label>Tile</label><input type="number" id="pctTile" value="'+esc(state.pctTile)+'" placeholder="0"></div><div class="field"><label>Concrete</label><input type="number" id="pctConcrete" value="'+esc(state.pctConcrete)+'" placeholder="0"></div><div class="field"><label>Other</label><input type="number" id="pctOther" value="'+esc(state.pctOther)+'" placeholder="0"></div></div></div><div class="nav-bar"><div></div><button class="btn btn-primary" onclick="nextStep()">Continue to Procedures →</button></div>';
+  return'<div class="step-header"><div class="step-label">Step 01 of 0'+tot+'</div><div class="step-title">Facility Background</div><div class="step-desc">Enter customer and facility information.</div>'+dataBadge()+'</div>'+warningBanners()+'<div class="card"><div class="card-title">Contact Information</div><div class="form-grid"><div class="field"><label>Facility Name</label><input id="facilityName" value="'+esc(state.facilityName)+'" placeholder="ABC Manufacturing Co."></div><div class="field"><label>Contact Person</label><input id="contactPerson" value="'+esc(state.contactPerson)+'" placeholder="Jane Smith"></div><div class="field"><label>Street Address</label><input id="address" value="'+esc(state.address)+'" placeholder="123 Industrial Blvd"></div><div class="field"><label>City</label><input id="city" value="'+esc(state.city)+'" placeholder="Chicago"></div><div class="field"><label>State</label><input id="stateAbbr" value="'+esc(state.stateAbbr)+'" placeholder="IL" maxlength="2"></div><div class="field"><label>ZIP</label><input id="zip" value="'+esc(state.zip)+'" placeholder="60601"></div></div></div><div class="card"><div class="card-title">Sales Rep Information</div><div class="form-grid"><div class="field"><label>Prepared By</label><input id="preparedBy" value="'+esc(state.preparedBy)+'" placeholder="Rep Name"></div><div class="field"><label>Dealership</label><input id="dealership" value="'+esc(state.dealership)+'" placeholder="Nilfisk Americas"></div><div class="field"><label>Date</label><input id="date" value="'+esc(state.date)+'" placeholder="MM/DD/YYYY"></div><div class="field"><label>Occupancy Type</label><input id="occupancy" value="'+esc(state.occupancy)+'" placeholder="Manufacturing / Office / Healthcare…"></div></div></div><div class="card"><div class="card-title">Building Description</div><div class="form-grid three"><div class="field"><label>Total Sq Ft</label><input type="number" id="totalSqFt" value="'+esc(state.totalSqFt)+'" placeholder="80000"></div><div class="field"><label>Total Cleanable Sq Ft</label><input type="number" id="totalCleanable" value="'+esc(state.totalCleanable)+'" placeholder="60000"></div><div class="field"></div></div><div class="divider"></div><div style="font-size:0.78rem;font-weight:600;color:var(--mid);margin-bottom:14px;font-family:\'Roboto Mono\',monospace;text-transform:uppercase;letter-spacing:1px;">Floor Type Mix (%)</div><div class="form-grid three"><div class="field"><label>Manufacturing</label><input type="number" id="pctMfg" value="'+esc(state.pctMfg)+'" placeholder="0"></div><div class="field"><label>Office</label><input type="number" id="pctOffice" value="'+esc(state.pctOffice)+'" placeholder="0"></div><div class="field"><label>Carpet</label><input type="number" id="pctCarpet" value="'+esc(state.pctCarpet)+'" placeholder="0"></div><div class="field"><label>Tile</label><input type="number" id="pctTile" value="'+esc(state.pctTile)+'" placeholder="0"></div><div class="field"><label>Concrete</label><input type="number" id="pctConcrete" value="'+esc(state.pctConcrete)+'" placeholder="0"></div><div class="field"><label>Other</label><input type="number" id="pctOther" value="'+esc(state.pctOther)+'" placeholder="0"></div></div></div><div class="nav-bar"><div></div><button class="btn btn-primary" onclick="nextStep()">Continue to Procedures →</button></div>';
 }
 
-// ── STEP 2 ────────────────────────────────────────────────────────────────────
 function renderStep2(){
   const r=calc();
   const cats=Object.keys(EQUIPMENT);
@@ -499,7 +441,7 @@ function renderStep2(){
     return'<option value="'+i+'" '+(selIdx===i?'selected':'')+'>'+esc(e.size)+(e.model?' – '+esc(e.model):'')+autoTag+' ('+e.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sqft/hr)</option>';
   }).join('');
 
-  let h='<div class="step-header"><div class="step-label">Step 02 of 0'+tot+'</div><div class="step-title">Procedure Comparison</div><div class="step-desc">Add one row per procedure being replaced. Select an Autonomous Scrubber or Autonomous Sweeper as the prescribed solution to unlock the Autonomous Evaluation step.</div></div>';
+  let h='<div class="step-header"><div class="step-label">Step 02 of 0'+tot+'</div><div class="step-title">Procedure Comparison</div><div class="step-desc">Add one row per procedure being replaced. Select an Autonomous Scrubber or Autonomous Sweeper as the prescribed solution to unlock the Autonomous Evaluation step.</div>'+ISSA_DISCLAIMER+'</div>';
   h+='<div class="card"><div class="card-title">Equipment Selection</div>';
 
   state.pairs.forEach((pair,pi)=>{
@@ -513,27 +455,22 @@ function renderStep2(){
     h+='<div class="pair-block">';
     if(state.pairs.length>1)h+='<button class="pair-remove" onclick="removePair('+pi+')" title="Remove">✕</button>';
     h+='<div class="pair-num">Procedure '+(pi+1)+(pr&&pr.is_autonomous?' &nbsp;<span class="tag tag-auto">🤖 Autonomous</span>':'')+'</div>';
-
     h+='<div class="proc-row">';
-    // Existing
     h+='<div><div class="proc-label existing">Existing Procedure</div>';
     h+='<div class="field"><label>Cleaning System</label><select onchange="setPairCat('+pi+',\'existing\',this.value)"><option value="">— Select —</option>'+catOpts(pair.existingCategory)+'</select></div>';
     if(exEquips.length)h+='<div class="field" style="margin-top:10px;"><label>Equipment Size / Model</label><select onchange="setPairEquip('+pi+',\'existing\',this.value)"><option value="-1">— Select —</option>'+equipOpts(pair.existingCategory,pair.existingEquipIdx)+'</select></div>';
     if(ex)h+='<div class="rate-display"><span>'+ex.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+'</span> sq ft/hr &nbsp;·&nbsp; <span>'+ex.mins.toFixed(2)+'</span> min/1,000 sq ft</div>';
     h+='</div>';
-
     h+='<div class="vs-badge">VS</div>';
-
-    // Prescribed
     h+='<div><div class="proc-label prescribed">Nilfisk Prescribed</div>';
     h+='<div class="field"><label>Cleaning System</label><select onchange="setPairCat('+pi+',\'prescribed\',this.value)"><option value="">— Select —</option>'+catOpts(pair.prescribedCategory)+'</select></div>';
     if(prEquips.length)h+='<div class="field" style="margin-top:10px;"><label>Equipment Size / Model</label><select onchange="setPairEquip('+pi+',\'prescribed\',this.value)"><option value="-1">— Select —</option>'+equipOpts(pair.prescribedCategory,pair.prescribedEquipIdx)+'</select></div>';
     if(pr)h+='<div class="rate-display"><span>'+pr.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+'</span> sq ft/hr &nbsp;·&nbsp; '+(pr.is_autonomous?'<span style="color:var(--auto)">Autonomous — see next step for labor savings</span>':'<span>'+pr.mins.toFixed(2)+'</span> min/1,000 sq ft')+'</div>';
     h+='</div></div>';
-
-    // Per-pair params
     h+='<div class="form-grid" style="margin-top:16px;"><div class="field"><label>Cleanable Sq Ft</label><input type="number" onchange="setPairVal('+pi+',\'sqFt\',this.value)" value="'+pair.sqFt+'"><span class="hint">Total cleanable area per cleaning</span></div><div class="field"><label>Cleanings per '+state.period+'</label><input type="number" onchange="setPairVal('+pi+',\'cleaningsPerPeriod\',this.value)" value="'+pair.cleaningsPerPeriod+'"></div></div>';
-    if(showRider)h+='<div class="rider-row"><label><strong>Rider Bonus Productivity</strong><br><span style="opacity:0.7;font-size:0.78rem;">Additional factor for rider vs walk-behind</span></label><input type="range" min="0" max="50" step="5" value="'+state.riderBonus+'" oninput="state.riderBonus=parseInt(this.value);document.getElementById(\'riderValDisplay\').textContent=this.value+\'%\';"><div class="val" id="riderValDisplay">'+state.riderBonus+'%</div></div>';
+
+    // Rider row with tooltip
+    if(showRider)h+='<div class="rider-row"><label><span class="tooltip-wrap"><strong>Rider Bonus Productivity</strong> '+RIDER_TOOLTIP+'</span><br><span style="opacity:0.7;font-size:0.78rem;">% added on top of ISSA rate — hover <strong>?</strong> for explanation</span></label><input type="range" min="0" max="50" step="5" value="'+state.riderBonus+'" oninput="state.riderBonus=parseInt(this.value);document.getElementById(\'riderValDisplay\').textContent=this.value+\'%\';"><div class="val" id="riderValDisplay">'+state.riderBonus+'%</div></div>';
 
     if(ex&&pr&&!pr.is_autonomous){
       h+='<div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">';
@@ -547,68 +484,37 @@ function renderStep2(){
 
   h+='<button class="add-btn" onclick="addPair()" style="margin-top:4px;">+ Add Another Procedure</button>';
   h+='</div>';
-  h+='<div class="card"><div class="card-title">Global Parameters</div><div class="form-grid"><div class="field"><label>Period</label><select id="period"><option value="Week" '+(state.period==='Week'?'selected':'')+'>Week</option><option value="Year" '+(state.period==='Year'?'selected':'')+'>Year</option></select></div><div class="field"><label>Rider Bonus %</label><input type="number" id="riderBonus" value="'+state.riderBonus+'" min="0" max="50"><span class="hint">Applied when prescribed is a rider machine</span></div></div></div>';
+  h+='<div class="card"><div class="card-title">Global Parameters</div><div class="form-grid"><div class="field"><label>Period</label><select id="period"><option value="Week" '+(state.period==='Week'?'selected':'')+'>Week</option><option value="Year" '+(state.period==='Year'?'selected':'')+'>Year</option></select></div><div class="field"><label>Rider Bonus % '+RIDER_TOOLTIP+'</label><input type="number" id="riderBonus" value="'+state.riderBonus+'" min="0" max="50"><span class="hint">Applied when prescribed is a rider machine</span></div></div></div>';
 
   const anyComplete=state.pairs.some(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx));
   if(anyComplete){
     h+='<div class="summary-bar"><div class="sb-item"><div class="sb-label">Total Procedures</div><div class="sb-val">'+state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx)).length+'</div></div><div class="sb-item"><div class="sb-label">Total Time Saved / '+state.period+'</div><div class="sb-val">'+fmtH(r.totalTimePerPeriod)+'</div></div><div class="sb-item"><div class="sb-label">Avg Improvement</div><div class="sb-val">'+fmtP(r.avgSavingsPct)+'</div></div><div class="sb-item"><div class="sb-label">Period</div><div class="sb-val">'+state.period+'</div></div></div>';
   }
-
   const nextLabel=hasAutonomousPrescribed()?'Continue to Autonomous Evaluation →':'Continue to Payback →';
   h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">'+nextLabel+'</button></div>';
   return h;
 }
 
-// ── STEP AUTO ─────────────────────────────────────────────────────────────────
 function renderStepAuto(){
   const a=calcAuto();
-  const r=calc();
   const tot=totalSteps();
-
   let h='<div class="step-header"><div class="step-label auto">Step 02b of 0'+tot+' — Autonomous</div><div class="step-title">Autonomous Evaluation</div><div class="step-desc">Configure your autonomous deployment. The operator is freed during machine run time — only supervision and maintenance hours are counted as labor.</div></div>';
-
-  // Auto equipment info
-  if(a.autoEquip){
-    h+='<div class="auto-badge">🤖 '+esc(a.autoEquip.size)+(a.autoEquip.model?' — '+esc(a.autoEquip.model):'')+' · '+a.autoEquip.sqft.toLocaleString()+' sq ft/hr practical</div>';
-  }
-
+  if(a.autoEquip){h+='<div class="auto-badge">🤖 '+esc(a.autoEquip.size)+(a.autoEquip.model?' — '+esc(a.autoEquip.model):'')+' · '+a.autoEquip.sqft.toLocaleString()+' sq ft/hr practical</div>';}
   h+='<div class="auto-card"><div class="auto-card-title">Deployment Configuration</div>';
   h+='<div class="form-grid"><div class="field"><label>Sq Ft per Autonomous Run</label><input type="number" id="autoSqFtPerRun" value="'+state.autoSqFtPerRun+'"><span class="hint">Area the robot cleans per deployment</span></div><div class="field"><label>Runs per '+state.period+'</label><input type="number" id="autoCleaningsPerPeriod" value="'+state.autoCleaningsPerPeriod+'"></div><div class="field"><label>Maintenance Time per Run (hrs)</label><input type="number" id="autoMaintenanceHrs" value="'+state.autoMaintenanceHrs+'" step="0.25"><span class="hint">Prep, refill, end-of-run tasks (default 0.75)</span></div></div>';
-
   h+='<div class="auto-supervision-row"><label><strong>Supervision Required</strong><br><span style="opacity:0.7;font-size:0.78rem;">% of machine run time operator must be present (default 15%)</span></label><input type="range" id="autoSupervisionRange" min="5" max="40" step="5" value="'+state.autoSupervisionPct+'" oninput="state.autoSupervisionPct=parseInt(this.value);document.getElementById(\'autoSupVal\').textContent=this.value+\'%\';"><div class="val" id="autoSupVal">'+state.autoSupervisionPct+'%</div></div>';
   h+='</div>';
-
-  // Comparison table
-  h+='<div class="auto-card"><div class="auto-card-title">Labor Time Comparison — Per Run</div>';
-  h+='<div class="auto-comparison">';
-  h+='<div class="auto-comp-card existing"><div class="auto-comp-label">Manual / Existing</div><div class="auto-comp-val">'+fmtH(a.conventionalTimePerCleaning)+'</div><div class="auto-comp-sub">Operator fully occupied for entire cleaning</div></div>';
-  h+='<div class="auto-comp-card autonomous"><div class="auto-comp-label">🤖 Autonomous</div><div class="auto-comp-val">'+fmtH(a.operatorTimePerCleaning)+'</div><div class="auto-comp-sub">'+fmtH(a.supervisionTimePerCleaning)+' supervision + '+fmtH(a.maintenancePerCleaning)+' maintenance</div></div>';
-  h+='</div>';
-  h+='</div>';
-
-  // Metrics
-  h+='<div class="auto-metric-grid">';
-  h+='<div class="auto-metric"><div class="auto-metric-label">Machine Run Time / Run</div><div class="auto-metric-value">'+fmtH(a.machineRunTime)+'</div><div class="auto-metric-sub">'+a.sqFtPerRun.toLocaleString()+' sq ft ÷ '+a.sqftPerHr.toLocaleString()+' sq ft/hr</div></div>';
-  h+='<div class="auto-metric highlight"><div class="auto-metric-label">Operator Time Freed / Run</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerCleaning)+'</div><div class="auto-metric-sub">vs '+fmtH(a.conventionalTimePerCleaning)+' conventional</div></div>';
-  h+='<div class="auto-metric highlight"><div class="auto-metric-label">Labor Freed / '+state.period+'</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerPeriod)+'</div><div class="auto-metric-sub">'+a.cleaningsPerPeriod+' runs × '+fmtH(a.laborSavedPerCleaning)+' saved</div></div>';
-  h+='</div>';
-
+  h+='<div class="auto-card"><div class="auto-card-title">Labor Time Comparison — Per Run</div><div class="auto-comparison"><div class="auto-comp-card existing"><div class="auto-comp-label">Manual / Existing</div><div class="auto-comp-val">'+fmtH(a.conventionalTimePerCleaning)+'</div><div class="auto-comp-sub">Operator fully occupied for entire cleaning</div></div><div class="auto-comp-card autonomous"><div class="auto-comp-label">🤖 Autonomous</div><div class="auto-comp-val">'+fmtH(a.operatorTimePerCleaning)+'</div><div class="auto-comp-sub">'+fmtH(a.supervisionTimePerCleaning)+' supervision + '+fmtH(a.maintenancePerCleaning)+' maintenance</div></div></div></div>';
+  h+='<div class="auto-metric-grid"><div class="auto-metric"><div class="auto-metric-label">Machine Run Time / Run</div><div class="auto-metric-value">'+fmtH(a.machineRunTime)+'</div><div class="auto-metric-sub">'+a.sqFtPerRun.toLocaleString()+' sq ft ÷ '+a.sqftPerHr.toLocaleString()+' sq ft/hr</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Operator Time Freed / Run</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerCleaning)+'</div><div class="auto-metric-sub">vs '+fmtH(a.conventionalTimePerCleaning)+' conventional</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Labor Freed / '+state.period+'</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerPeriod)+'</div><div class="auto-metric-sub">'+a.cleaningsPerPeriod+' runs × '+fmtH(a.laborSavedPerCleaning)+' saved</div></div></div>';
   h+='<div class="auto-summary-bar"><div class="sb-item"><div class="sb-label">Supervision %</div><div class="sb-val">'+state.autoSupervisionPct+'%</div></div><div class="sb-item"><div class="sb-label">Machine Run / cleaning</div><div class="sb-val">'+fmtH(a.machineRunTime)+'</div></div><div class="sb-item"><div class="sb-label">Operator Freed / Run</div><div class="sb-val">'+fmtH(a.laborSavedPerCleaning)+'</div></div><div class="sb-item"><div class="sb-label">Freed / '+state.period+'</div><div class="sb-val">'+fmtH(a.laborSavedPerPeriod)+'</div></div></div>';
-
   h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Continue to Payback →</button></div>';
   return h;
 }
 
-// ── STEP PAYBACK ──────────────────────────────────────────────────────────────
 function renderStepPayback(){
-  const r=calc();
-  const tot=totalSteps();
-  const stepN=getPaybackStep();
+  const r=calc();const tot=totalSteps();const stepN=getPaybackStep();
   const pyC=r.paybackYears<=3?'payback-good':r.paybackYears<=5?'payback-ok':'payback-warn';
-  const leaseAmt=parseFloat(state.leasePayment)||0;
-  const netMonthly=r.savingsPerMonth-leaseAmt;
-  const netClass=netMonthly>=0?'win':'loss';
-
+  const leaseAmt=parseFloat(state.leasePayment)||0;const netMonthly=r.savingsPerMonth-leaseAmt;const netClass=netMonthly>=0?'win':'loss';
   let h='<div class="step-header"><div class="step-label">Step 0'+stepN+' of 0'+tot+'</div><div class="step-title">Labor Cost &amp; Machine Payback</div><div class="step-desc">Enter investment details to calculate ROI, annual savings, and payback period.</div></div>';
   h+='<div class="card"><div class="card-title">Cost Inputs</div><div class="form-grid"><div class="field"><label>Hourly Labor Rate (with benefits)</label><input type="number" id="hourlyLaborRate" value="'+state.hourlyLaborRate+'" step="0.50"><span class="hint">Fully loaded cost per hour</span></div><div class="field"><label>Number of Weeks in Evaluation</label><input type="number" id="weeks" value="'+state.weeks+'"><span class="hint">Typically 52 for annual</span></div><div class="field"><label>Machine / Capital Investment ($)</label><input type="number" id="machineInvestment" value="'+state.machineInvestment+'"></div><div class="field"><label>Machine Life (Years)</label><input type="number" id="machineLife" value="'+state.machineLife+'"></div><div class="field"><label>Monthly Lease / Payment ($/mo)</label><input type="number" id="leasePayment" value="'+state.leasePayment+'"><span class="hint">Leave 0 if purchasing outright</span></div></div></div>';
   h+='<div class="metric-grid"><div class="metric"><div class="metric-label">Labor Savings / '+state.period+'</div><div class="metric-value">'+fmtC(r.laborPerPeriod)+'</div><div class="metric-sub">'+fmtH(r.totalTimePerPeriod)+' × $'+state.hourlyLaborRate+'/hr</div></div><div class="metric highlight"><div class="metric-label">Annual Savings</div><div class="metric-value">'+fmtC(r.annualSavings)+'</div><div class="metric-sub">Over '+state.weeks+' weeks</div></div><div class="metric '+(r.paybackYears>5?'warn':'')+'"><div class="metric-label">Payback Period</div><div class="metric-value '+pyC+'">'+fmtY(r.paybackYears)+'</div><div class="metric-sub">'+fmtC(state.machineInvestment)+' ÷ '+fmtC(r.annualSavings)+'/yr</div></div><div class="metric"><div class="metric-label">Total Savings Over Life</div><div class="metric-value">'+fmtC(r.totalSavings)+'</div><div class="metric-sub">Over '+state.machineLife+' year machine life</div></div><div class="metric"><div class="metric-label">Net PEP Benefit</div><div class="metric-value">'+fmtC(r.totalSavings-(parseFloat(state.machineInvestment)||0))+'</div><div class="metric-sub">Total savings minus investment</div></div></div>';
@@ -620,11 +526,8 @@ function renderStepPayback(){
   return h;
 }
 
-// ── STEP TASKS ────────────────────────────────────────────────────────────────
 function renderStepTasks(){
-  const r=calc();
-  const tot=totalSteps();
-  const stepN=getTaskStep();
+  const r=calc();const tot=totalSteps();const stepN=getTaskStep();
   let h='<div class="step-header"><div class="step-label">Step 0'+stepN+' of 0'+tot+'</div><div class="step-title">Productivity Increase Analysis</div><div class="step-desc">Allocate freed-up time to additional custodial tasks.</div></div>';
   h+='<div class="card"><div class="card-title">Time Available: '+fmtH(r.totalTimePerPeriod)+' / '+state.period+'</div><div class="tasks-grid">';
   TASKS.forEach(t=>{h+='<div class="task-row"><label>'+esc(t)+'</label><input type="number" class="task-input" data-task="'+esc(t)+'" value="'+(state.taskHours[t]||'')+'" placeholder="0.0" step="0.5" min="0"><span class="unit">hrs</span></div>';});
@@ -633,100 +536,64 @@ function renderStepTasks(){
   return h;
 }
 
-// ── STEP PROPOSAL ─────────────────────────────────────────────────────────────
 function renderStepProposal(){
-  const r=calc();
-  const tot=totalSteps();
-  const stepN=getProposalStep();
+  const r=calc();const tot=totalSteps();const stepN=getProposalStep();
   const pyC=r.paybackYears<=3?'payback-good':r.paybackYears<=5?'payback-ok':'payback-warn';
-  const leaseAmt=parseFloat(state.leasePayment)||0;
-  const netMonthly=r.savingsPerMonth-leaseAmt;
-  const netClass=netMonthly>=0?'win':'loss';
+  const leaseAmt=parseFloat(state.leasePayment)||0;const netMonthly=r.savingsPerMonth-leaseAmt;const netClass=netMonthly>=0?'win':'loss';
   const completePairs=state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx));
   const itemRows=state.proposalItems.map((item,i)=>{
     const t=(parseFloat(item.qty)||0)*(parseFloat(item.unitCost)||0);
     return'<div class="proposal-item"><input type="number" placeholder="Qty" value="'+esc(item.qty)+'" oninput="updatePI('+i+',\'qty\',this.value)" style="text-align:center;"><input placeholder="Description" value="'+esc(item.desc)+'" oninput="updatePI('+i+',\'desc\',this.value)"><input class="col-order" placeholder="Order #" value="'+esc(item.order)+'" oninput="updatePI('+i+',\'order\',this.value)"><input type="number" placeholder="Unit Cost" value="'+esc(item.unitCost)+'" oninput="updatePI('+i+',\'unitCost\',this.value)"><div class="total-cell">'+(t>0?fmtC(t):'—')+'</div></div>';
   }).join('');
-
   let h='<div class="step-header"><div class="step-label">Step 0'+stepN+' of 0'+tot+'</div><div class="step-title">Profitability Proposal</div><div class="step-desc">Complete the quote and review the full PEP summary.</div></div>';
   h+='<div class="card"><div class="card-title">PEP Summary</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;"><div><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--mid);margin-bottom:6px;font-family:\'Roboto Mono\',monospace;">Customer</div><div style="font-size:1rem;font-weight:500;">'+(state.facilityName||'—')+'</div><div style="font-size:0.85rem;color:var(--mid);">'+state.contactPerson+'</div><div style="font-size:0.85rem;color:var(--mid);">'+([ state.city,state.stateAbbr,state.zip].filter(Boolean).join(', '))+'</div></div><div><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--mid);margin-bottom:6px;font-family:\'Roboto Mono\',monospace;">Prepared By</div><div style="font-size:1rem;font-weight:500;">'+(state.preparedBy||'—')+'</div><div style="font-size:0.85rem;color:var(--mid);">'+state.dealership+'</div><div style="font-size:0.85rem;color:var(--mid);">'+state.date+'</div></div></div><div class="divider"></div>';
-
   completePairs.forEach((pair,pi)=>{
     const ex=getEquip(pair.existingCategory,pair.existingEquipIdx);
     const pr=getEquip(pair.prescribedCategory,pair.prescribedEquipIdx);
     const pRes=calcPair(pair);
-    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);">';
-    h+='<div><span class="tag tag-amber">Existing '+(completePairs.length>1?pi+1:'')+'</span><div style="margin-top:6px;font-size:0.88rem;font-weight:500;">'+(ex?ex.size+(ex.model?' – '+ex.model:''):'—')+'</div><div style="font-size:0.8rem;color:var(--mid);">'+(ex?ex.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr':'')+'</div></div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);"><div><span class="tag tag-amber">Existing '+(completePairs.length>1?pi+1:'')+'</span><div style="margin-top:6px;font-size:0.88rem;font-weight:500;">'+(ex?ex.size+(ex.model?' – '+ex.model:''):'—')+'</div><div style="font-size:0.8rem;color:var(--mid);">'+(ex?ex.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr':'')+'</div></div>';
     const autoTag=pr&&pr.is_autonomous?'<span class="tag tag-auto" style="margin-left:6px;">🤖 Autonomous</span>':'';
-    h+='<div><span class="tag tag-teal">Prescribed '+(completePairs.length>1?pi+1:'')+'</span>'+autoTag+'<div style="margin-top:6px;font-size:0.88rem;font-weight:500;">'+(pr?pr.size+(pr.model?' – '+pr.model:''):'—')+'</div><div style="font-size:0.8rem;color:var(--mid);">'+(pr&&!pr.is_autonomous?pr.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr · '+fmtH(pRes.timePerPeriod)+' saved/'+state.period:pr?pr.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr practical':'')+'</div></div>';
-    h+='</div>';
+    h+='<div><span class="tag tag-teal">Prescribed '+(completePairs.length>1?pi+1:'')+'</span>'+autoTag+'<div style="margin-top:6px;font-size:0.88rem;font-weight:500;">'+(pr?pr.size+(pr.model?' – '+pr.model:''):'—')+'</div><div style="font-size:0.8rem;color:var(--mid);">'+(pr&&!pr.is_autonomous?pr.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr · '+fmtH(pRes.timePerPeriod)+' saved/'+state.period:pr?pr.sqft.toLocaleString(undefined,{maximumFractionDigits:0})+' sq ft/hr practical':'')+'</div></div></div>';
   });
-
-  // Autonomous summary row if applicable
-  if(hasAutonomousPrescribed()){
-    const a=calcAuto();
-    h+='<div style="background:#EDE9FE;border:1px solid #C4B5FD;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;"><strong style="color:var(--auto);">🤖 Autonomous Labor Freed / '+state.period+':</strong> '+fmtH(a.laborSavedPerPeriod)+' &nbsp;·&nbsp; '+state.autoSupervisionPct+'% supervision · '+fmtH(a.maintenancePerCleaning)+' maintenance/run</div>';
-  }
-
+  if(hasAutonomousPrescribed()){const a=calcAuto();h+='<div style="background:#EDE9FE;border:1px solid #C4B5FD;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;"><strong style="color:var(--auto);">🤖 Autonomous Labor Freed / '+state.period+':</strong> '+fmtH(a.laborSavedPerPeriod)+' &nbsp;·&nbsp; '+state.autoSupervisionPct+'% supervision · '+fmtH(a.maintenancePerCleaning)+' maintenance/run</div>';}
   h+='<div class="metric-grid" style="margin-bottom:0;"><div class="metric"><div class="metric-label">Total Time Saved / '+state.period+'</div><div class="metric-value">'+fmtH(r.totalTimePerPeriod)+'</div><div class="metric-sub">Across '+completePairs.length+' procedure'+(completePairs.length!==1?'s':'')+'</div></div><div class="metric highlight"><div class="metric-label">Annual Labor Savings</div><div class="metric-value">'+fmtC(r.annualSavings)+'</div><div class="metric-sub">@ $'+state.hourlyLaborRate+'/hr loaded</div></div><div class="metric highlight"><div class="metric-label">Payback Period</div><div class="metric-value '+pyC+'">'+fmtY(r.paybackYears)+'</div><div class="metric-sub">'+fmtC(r.totalSavings)+' total over life</div></div></div>';
-
   h+='<div class="savings-callout"><div class="savings-callout-title">💡 You Can\'t Afford NOT to Buy This</div><div class="savings-callout-rows"><div class="sc-item positive"><div class="sc-label">Monthly Labor Savings</div><div class="sc-val">'+fmtC(r.savingsPerMonth)+'</div></div><div class="sc-item payment"><div class="sc-label">Monthly Payment</div><div class="sc-val">'+(leaseAmt>0?fmtC(leaseAmt):'—')+'</div></div></div>';
   if(leaseAmt>0){h+='<div class="sc-net '+netClass+'"><div class="sc-net-label">'+(netMonthly>=0?'✓ Your savings MORE than cover the payment. Net gain: ':'⚠ Payment exceeds monthly savings by: ')+'</div><div class="sc-net-val">'+(netMonthly>=0?'+':'')+fmtC(netMonthly)+' / mo</div></div>';}
   h+='</div></div>';
-
   h+='<div class="card"><div class="card-title">Equipment Quote</div><div class="proposal-col-header"><div>Qty</div><div>Description</div><div class="col-order">Order #</div><div>Unit Cost</div><div style="text-align:right;">Total</div></div><div class="proposal-items">'+itemRows+'</div><button class="add-btn" onclick="addPI()">+ Add Line Item</button><div class="proposal-totals"><div class="total-row"><span class="tl">Savings / Month</span><span class="tv">'+fmtC(r.savingsPerMonth)+'</span></div><div class="total-row"><span class="tl">Total PEP Savings</span><span class="tv">'+fmtC(r.totalSavings)+'</span></div><div class="total-row grand"><span class="tl">Investment Total</span><span class="tv">'+fmtC(r.proposalTotal)+'</span></div></div></div>';
   h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-print" onclick="window.print()">🖨 Print Proposal</button></div>';
   h+=renderCalcAudit();
   return h;
 }
 
-// ── CALC AUDIT ────────────────────────────────────────────────────────────────
 function toggleCalcAudit(){
   const body=document.getElementById('calcAuditBody');
   const chev=document.getElementById('calcAuditChevron');
   if(!body)return;
   const open=body.classList.contains('open');
-  body.classList.toggle('open',!open);
-  chev.classList.toggle('open',!open);
+  body.classList.toggle('open',!open);chev.classList.toggle('open',!open);
 }
 function renderCalcAudit(){
-  const r=calc();
-  const laborRate=parseFloat(state.hourlyLaborRate)||0;
-  const weeks=parseFloat(state.weeks)||52;
-  const investment=parseFloat(state.machineInvestment)||0;
-  const machineLife=parseFloat(state.machineLife)||5;
-  const leaseAmt=parseFloat(state.leasePayment)||0;
+  const r=calc();const laborRate=parseFloat(state.hourlyLaborRate)||0;const weeks=parseFloat(state.weeks)||52;const investment=parseFloat(state.machineInvestment)||0;const machineLife=parseFloat(state.machineLife)||5;const leaseAmt=parseFloat(state.leasePayment)||0;
   const completePairs=state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx));
   const row=(l,v,f)=>'<tr><td>'+l+'</td><td>'+v+'</td><td>'+f+'</td></tr>';
   const frow=(l,v,f)=>'<tr class="formula-row"><td>'+l+'</td><td>'+v+'</td><td>'+f+'</td></tr>';
   const rrow=(l,v,f)=>'<tr class="result-row"><td>'+l+'</td><td>'+v+'</td><td>'+f+'</td></tr>';
-
   let h='<div class="calc-accordion" id="calcAudit"><div class="calc-accordion-header" onclick="toggleCalcAudit()"><div class="calc-accordion-title"><span>🔍</span> Show Calculation Audit</div><div class="calc-accordion-chevron" id="calcAuditChevron">▼</div></div><div class="calc-accordion-body" id="calcAuditBody">';
-
   if(completePairs.length>0){
     h+='<div class="audit-section"><div class="audit-section-title">Step 1 — Time Savings per Procedure</div>';
     completePairs.forEach((pair,pi)=>{
-      const p=calcPair(pair);
-      const ex=p.ex;const pr=p.pr;
-      const sqFt=parseFloat(pair.sqFt)||0;
-      const cleanings=parseFloat(pair.cleaningsPerPeriod)||0;
-      const isRider=pr&&(pr.is_rider||(pr.size||'').toLowerCase().includes('r,'))&&!pr.is_autonomous;
+      const p=calcPair(pair);const ex=p.ex;const pr=p.pr;const sqFt=parseFloat(pair.sqFt)||0;const cleanings=parseFloat(pair.cleaningsPerPeriod)||0;const isRider=pr&&(pr.is_rider||(pr.size||'').toLowerCase().includes('r,'))&&!pr.is_autonomous;
       h+='<div class="audit-pair-header">Procedure '+(pi+1)+': '+esc(ex.size)+(ex.model?' ('+esc(ex.model)+')':'')+'  →  '+esc(pr.size)+(pr.is_autonomous?' 🤖':'')+(pr.model?' ('+esc(pr.model)+')':'')+'</div>';
-      if(pr.is_autonomous){
+      if(pr.is_autonomous){h+='<table class="audit-table">'+row('Note','Autonomous machine','Labor savings calculated in Step 2b — Autonomous Evaluation')+'</table>';}
+      else{
         h+='<table class="audit-table">';
-        h+=row('Note','Autonomous machine','Labor savings calculated in Step 2b — Autonomous Evaluation');
-        h+='</table>';
-      } else {
-        h+='<table class="audit-table">';
-        h+=row('Existing: mins per 1,000 sq ft',ex.mins.toFixed(4)+' min','From rates table');
+        h+=row('Existing: mins per 1,000 sq ft',ex.mins.toFixed(4)+' min','ISSA 612 — Practical');
         h+=frow('Existing: time per cleaning',fmtH(p.exTime),'('+ex.mins.toFixed(4)+' × '+sqFt.toLocaleString()+') ÷ 1,000 ÷ 60');
-        h+=row('Prescribed: mins per 1,000 sq ft',pr.mins.toFixed(4)+' min','From rates table');
+        h+=row('Prescribed: mins per 1,000 sq ft',pr.mins.toFixed(4)+' min','ISSA 612 — Practical');
         h+=frow('Prescribed: time per cleaning',fmtH(p.prTime),'('+pr.mins.toFixed(4)+' × '+sqFt.toLocaleString()+') ÷ 1,000 ÷ 60');
         h+=frow('Raw time saved per cleaning',fmtH(p.exTime-p.prTime),fmtH(p.exTime)+' − '+fmtH(p.prTime));
-        if(isRider){
-          h+=row('Rider bonus',state.riderBonus+'%','Rider machine productivity factor');
-          h+=frow('Adjusted savings/cleaning',fmtH(p.savingsPerCleaning),fmtH(p.exTime-p.prTime)+' × (1 + '+state.riderBonus/100+')');
-        }
+        if(isRider){h+=row('Rider bonus',state.riderBonus+'%','Applied on top of ISSA rate');h+=frow('Adjusted savings/cleaning',fmtH(p.savingsPerCleaning),fmtH(p.exTime-p.prTime)+' × (1 + '+state.riderBonus/100+')');}
         h+=frow('Efficiency improvement',fmtP(p.savingsPct),fmtH(p.savingsPerCleaning)+' ÷ '+fmtH(p.exTime)+' × 100');
         h+=row('Cleanings per '+state.period,cleanings,'User input');
         h+=rrow('Time saved / '+state.period,fmtH(p.timePerPeriod),fmtH(p.savingsPerCleaning)+' × '+cleanings);
@@ -734,34 +601,25 @@ function renderCalcAudit(){
       }
       if(pi<completePairs.length-1)h+='<div class="audit-divider"></div>';
     });
-    if(completePairs.length>1){
-      h+='<div class="audit-divider"></div><table class="audit-table">';
-      completePairs.forEach((pair,pi)=>{const p=calcPair(pair);h+=row('Procedure '+(pi+1)+' time saved / '+state.period,fmtH(p.timePerPeriod),'');});
-      h+=rrow('Total time saved / '+state.period,fmtH(r.totalTimePerPeriod),completePairs.map((_,i)=>'P'+(i+1)).join(' + '));
-      h+='</table>';
-    }
+    if(completePairs.length>1){h+='<div class="audit-divider"></div><table class="audit-table">';completePairs.forEach((pair,pi)=>{const p=calcPair(pair);h+=row('Procedure '+(pi+1)+' time saved / '+state.period,fmtH(p.timePerPeriod),'');});h+=rrow('Total time saved / '+state.period,fmtH(r.totalTimePerPeriod),completePairs.map((_,i)=>'P'+(i+1)).join(' + '));h+='</table>';}
     h+='</div>';
   }
-
-  // Autonomous section in audit
   if(hasAutonomousPrescribed()){
     const a=calcAuto();
-    h+='<div class="audit-divider"></div><div class="audit-section"><div class="audit-section-title" style="color:var(--auto);border-color:var(--auto);">Step 2b — Autonomous Labor Savings</div>';
-    h+='<table class="audit-table">';
+    h+='<div class="audit-divider"></div><div class="audit-section"><div class="audit-section-title" style="color:var(--auto);border-color:var(--auto);">Step 2b — Autonomous Labor Savings</div><table class="audit-table">';
     h+=row('Machine sqft/hr (practical)',a.sqftPerHr.toLocaleString()+' sq ft/hr','From rates table');
     h+=row('Sq ft per run',a.sqFtPerRun.toLocaleString(),'User input');
     h+=frow('Machine run time / run',fmtH(a.machineRunTime),a.sqFtPerRun.toLocaleString()+' ÷ '+a.sqftPerHr.toLocaleString());
-    h+=row('Supervision %',state.autoSupervisionPct+'%','User input — operator present during this % of run');
+    h+=row('Supervision %',state.autoSupervisionPct+'%','User input');
     h+=frow('Supervision time / run',fmtH(a.supervisionTimePerCleaning),fmtH(a.machineRunTime)+' × '+state.autoSupervisionPct+'%');
-    h+=row('Maintenance time / run',fmtH(a.maintenancePerCleaning),'User input — prep, refill, end-of-run');
-    h+=frow('Total operator time / run (autonomous)',fmtH(a.operatorTimePerCleaning),fmtH(a.supervisionTimePerCleaning)+' + '+fmtH(a.maintenancePerCleaning));
-    h+=row('Conventional operator time / run',fmtH(a.conventionalTimePerCleaning),'From existing procedure or estimated');
+    h+=row('Maintenance time / run',fmtH(a.maintenancePerCleaning),'User input');
+    h+=frow('Total operator time / run',fmtH(a.operatorTimePerCleaning),fmtH(a.supervisionTimePerCleaning)+' + '+fmtH(a.maintenancePerCleaning));
+    h+=row('Conventional operator time / run',fmtH(a.conventionalTimePerCleaning),'From existing procedure');
     h+=frow('Labor freed per run',fmtH(a.laborSavedPerCleaning),fmtH(a.conventionalTimePerCleaning)+' − '+fmtH(a.operatorTimePerCleaning));
     h+=row('Runs per '+state.period,a.cleaningsPerPeriod,'User input');
     h+=rrow('Total labor freed / '+state.period,fmtH(a.laborSavedPerPeriod),fmtH(a.laborSavedPerCleaning)+' × '+a.cleaningsPerPeriod);
     h+='</table></div>';
   }
-
   h+='<div class="audit-divider"></div><div class="audit-section"><div class="audit-section-title">Time Savings → Labor Cost</div><table class="audit-table">';
   h+=row('Total time saved / '+state.period,fmtH(r.totalTimePerPeriod),'Sum of all procedures + autonomous');
   h+=row('Hourly labor rate','$'+laborRate.toFixed(2)+'/hr','User input');
@@ -770,153 +628,66 @@ function renderCalcAudit(){
   else{h+=frow('Annual savings',fmtC(r.annualSavings),'Period = Year');}
   h+=rrow('Monthly savings',fmtC(r.savingsPerMonth),fmtC(r.annualSavings)+' ÷ 12');
   h+='</table></div>';
-
   h+='<div class="audit-divider"></div><div class="audit-section"><div class="audit-section-title">ROI &amp; Payback</div><table class="audit-table">';
-  h+=row('Investment',fmtC(investment),'User input');
-  h+=row('Annual savings',fmtC(r.annualSavings),'From above');
+  h+=row('Investment',fmtC(investment),'User input');h+=row('Annual savings',fmtC(r.annualSavings),'From above');
   h+=frow('Payback period',fmtY(r.paybackYears),fmtC(investment)+' ÷ '+fmtC(r.annualSavings)+'/yr');
   h+=row('Machine life',machineLife+' years','User input');
   h+=frow('Total savings over life',fmtC(r.totalSavings),fmtC(r.annualSavings)+' × '+machineLife+' yrs');
   h+=rrow('Net PEP benefit',fmtC(r.totalSavings-investment),fmtC(r.totalSavings)+' − '+fmtC(investment));
-  if(leaseAmt>0){
-    h+='<tr><td colspan="3"><div class="audit-divider" style="margin:10px 0;"></div></td></tr>';
-    h+=row('Monthly savings',fmtC(r.savingsPerMonth),'From above');
-    h+=row('Monthly payment',fmtC(leaseAmt),'User input');
-    h+=rrow('Net monthly position',fmtC(r.savingsPerMonth-leaseAmt),fmtC(r.savingsPerMonth)+' − '+fmtC(leaseAmt));
-  }
-  h+='</table></div>';
-  h+='</div></div>';
+  if(leaseAmt>0){h+='<tr><td colspan="3"><div class="audit-divider" style="margin:10px 0;"></div></td></tr>';h+=row('Monthly savings',fmtC(r.savingsPerMonth),'From above');h+=row('Monthly payment',fmtC(leaseAmt),'User input');h+=rrow('Net monthly position',fmtC(r.savingsPerMonth-leaseAmt),fmtC(r.savingsPerMonth)+' − '+fmtC(leaseAmt));}
+  h+='</table></div></div></div>';
   return h;
 }
 
-// ─── EVENTS ───────────────────────────────────────────────────────────────────
 function bindEvents(){
-  ['contactPerson','facilityName','address','city','stateAbbr','zip','preparedBy','dealership',
-   'date','occupancy','totalSqFt','totalCleanable','pctMfg','pctOffice','pctCarpet','pctTile',
-   'pctConcrete','pctOther'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.addEventListener('input',e=>{state[id]=e.target.value;});
-  });
-  ['hourlyLaborRate','weeks','machineInvestment','machineLife','leasePayment'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    el.addEventListener('input',e=>{state[id]=e.target.value;});
-    el.addEventListener('blur',()=>{render();});
-  });
-  // Autonomous numeric inputs — blur to re-render
-  ['autoSqFtPerRun','autoCleaningsPerPeriod','autoMaintenanceHrs'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    el.addEventListener('input',e=>{state[id]=e.target.value;});
-    el.addEventListener('blur',()=>{render();});
-  });
-  const periodEl=document.getElementById('period');
-  if(periodEl)periodEl.addEventListener('change',e=>{state.period=e.target.value;render();});
-  const riderEl=document.getElementById('riderBonus');
-  if(riderEl&&riderEl.type==='number'){
-    riderEl.addEventListener('input',e=>{state.riderBonus=parseInt(e.target.value)||0;});
-    riderEl.addEventListener('blur',()=>{render();});
-  }
-  document.querySelectorAll('.task-input').forEach(el=>{
-    el.addEventListener('input',e=>{
-      state.taskHours[e.target.dataset.task]=parseFloat(e.target.value)||0;
-      const r=calc(),bank=document.querySelector('.time-bank');
-      if(bank){
-        bank.className='time-bank '+(r.hoursRemaining>=0?'positive':'negative');
-        bank.querySelector('.tb-label').textContent=r.hoursRemaining>=0?'✓ Remaining hours available':'⚠ Hours over-allocated';
-        bank.querySelector('.tb-val').textContent=Math.abs(r.hoursRemaining).toFixed(2)+' hrs';
-      }
-    });
-  });
+  ['contactPerson','facilityName','address','city','stateAbbr','zip','preparedBy','dealership','date','occupancy','totalSqFt','totalCleanable','pctMfg','pctOffice','pctCarpet','pctTile','pctConcrete','pctOther'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',e=>{state[id]=e.target.value;});});
+  ['hourlyLaborRate','weeks','machineInvestment','machineLife','leasePayment'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('input',e=>{state[id]=e.target.value;});el.addEventListener('blur',()=>{render();});});
+  ['autoSqFtPerRun','autoCleaningsPerPeriod','autoMaintenanceHrs'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('input',e=>{state[id]=e.target.value;});el.addEventListener('blur',()=>{render();});});
+  const periodEl=document.getElementById('period');if(periodEl)periodEl.addEventListener('change',e=>{state.period=e.target.value;render();});
+  const riderEl=document.getElementById('riderBonus');if(riderEl&&riderEl.type==='number'){riderEl.addEventListener('input',e=>{state.riderBonus=parseInt(e.target.value)||0;});riderEl.addEventListener('blur',()=>{render();});}
+  document.querySelectorAll('.task-input').forEach(el=>{el.addEventListener('input',e=>{state.taskHours[e.target.dataset.task]=parseFloat(e.target.value)||0;const r=calc(),bank=document.querySelector('.time-bank');if(bank){bank.className='time-bank '+(r.hoursRemaining>=0?'positive':'negative');bank.querySelector('.tb-label').textContent=r.hoursRemaining>=0?'✓ Remaining hours available':'⚠ Hours over-allocated';bank.querySelector('.tb-val').textContent=Math.abs(r.hoursRemaining).toFixed(2)+' hrs';}});});
 }
-
-function setPairCat(pi,which,val){
-  if(which==='existing'){state.pairs[pi].existingCategory=val;state.pairs[pi].existingEquipIdx=-1;}
-  else{state.pairs[pi].prescribedCategory=val;state.pairs[pi].prescribedEquipIdx=-1;}
-  render();
-}
-function setPairEquip(pi,which,val){
-  if(which==='existing')state.pairs[pi].existingEquipIdx=parseInt(val);
-  else state.pairs[pi].prescribedEquipIdx=parseInt(val);
-  render();
-}
+function setPairCat(pi,which,val){if(which==='existing'){state.pairs[pi].existingCategory=val;state.pairs[pi].existingEquipIdx=-1;}else{state.pairs[pi].prescribedCategory=val;state.pairs[pi].prescribedEquipIdx=-1;}render();}
+function setPairEquip(pi,which,val){if(which==='existing')state.pairs[pi].existingEquipIdx=parseInt(val);else state.pairs[pi].prescribedEquipIdx=parseInt(val);render();}
 function setPairVal(pi,field,val){state.pairs[pi][field]=val;render();}
 function addPair(){state.pairs.push({existingCategory:'',existingEquipIdx:-1,prescribedCategory:'',prescribedEquipIdx:-1,sqFt:60000,cleaningsPerPeriod:7});render();}
 function removePair(pi){if(state.pairs.length<=1)return;state.pairs.splice(pi,1);render();}
-function updatePI(i,f,v){
-  state.proposalItems[i][f]=v;
-  const r=calc();
-  document.querySelectorAll('.total-cell').forEach((el,idx)=>{
-    const item=state.proposalItems[idx];
-    if(!item)return;
-    const t=(parseFloat(item.qty)||0)*(parseFloat(item.unitCost)||0);
-    el.textContent=t>0?fmtC(t):'—';
-  });
-  const rows=document.querySelectorAll('.total-row .tv');
-  if(rows.length)rows[rows.length-1].textContent=fmtC(r.proposalTotal);
-}
+function updatePI(i,f,v){state.proposalItems[i][f]=v;const r=calc();document.querySelectorAll('.total-cell').forEach((el,idx)=>{const item=state.proposalItems[idx];if(!item)return;const t=(parseFloat(item.qty)||0)*(parseFloat(item.unitCost)||0);el.textContent=t>0?fmtC(t):'—';});const rows=document.querySelectorAll('.total-row .tv');if(rows.length)rows[rows.length-1].textContent=fmtC(r.proposalTotal);}
 function addPI(){state.proposalItems.push({qty:'',desc:'',order:'',unitCost:''});render();}
 function nextStep(){if(state.step<maxStep()){state.step++;render();window.scrollTo(0,0);}}
 function prevStep(){if(state.step>1){state.step--;render();window.scrollTo(0,0);}}
 function goStep(s){state.step=s;render();window.scrollTo(0,0);}
 
-// ─── LOADING ─────────────────────────────────────────────────────────────────
 function showLoading(statuses){
   document.getElementById('stepPills').innerHTML='';
   const steps=[{id:'eq',label:'equipment tab'},{id:'tk',label:'tasks tab'},{id:'rt',label:'rates tab'},{id:'join',label:'joining equipment + rates'}];
   document.getElementById('app').innerHTML='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:20px;"><div class="spinner"></div><div class="loading-text">Loading from Google Sheets…</div><div class="loading-steps">'+steps.map(s=>{const st=statuses[s.id]||'pending';const icon=st==='done'?'✓':st==='active'?'…':st==='error'?'✕':'○';return'<div class="loading-step '+st+'" id="ls-'+s.id+'"><div class="dot"></div>'+icon+' '+s.label+'</div>';}).join('')+'</div></div>';
 }
 function setLoadStep(id,status){
-  const el=document.getElementById('ls-'+id);
-  if(!el)return;
+  const el=document.getElementById('ls-'+id);if(!el)return;
   el.className='loading-step '+status;
   const icon=status==='done'?'✓':status==='active'?'…':status==='error'?'✕':'○';
   el.querySelector('.dot').style.background=status==='done'?'#22C55E':status==='active'?'var(--teal)':status==='error'?'var(--red)':'var(--border)';
   el.childNodes[1].textContent=' '+icon+' '+el.textContent.replace(/^. /,'');
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 async function fetchSheet(url,stepId){
   setLoadStep(stepId,'active');
-  try{
-    const resp=await fetch(url);
-    if(!resp.ok)throw new Error('HTTP '+resp.status);
-    const rows=parseCSV(await resp.text());
-    setLoadStep(stepId,'done');return{ok:true,rows,via:'direct'};
-  }catch(e1){
-    try{
-      const resp=await fetch(CORS_PROXY+encodeURIComponent(url));
-      if(!resp.ok)throw new Error('HTTP '+resp.status);
-      const rows=parseCSV(await resp.text());
-      setLoadStep(stepId,'done');return{ok:true,rows,via:'proxy'};
-    }catch(e2){
-      setLoadStep(stepId,'error');return{ok:false,rows:[],error:e1.message+'|'+e2.message};
-    }
-  }
+  try{const resp=await fetch(url);if(!resp.ok)throw new Error('HTTP '+resp.status);const rows=parseCSV(await resp.text());setLoadStep(stepId,'done');return{ok:true,rows,via:'direct'};}
+  catch(e1){try{const resp=await fetch(CORS_PROXY+encodeURIComponent(url));if(!resp.ok)throw new Error('HTTP '+resp.status);const rows=parseCSV(await resp.text());setLoadStep(stepId,'done');return{ok:true,rows,via:'proxy'};}catch(e2){setLoadStep(stepId,'error');return{ok:false,rows:[],error:e1.message+'|'+e2.message};}}
 }
 
 async function init(){
   showLoading({eq:'pending',tk:'pending',rt:'pending',join:'pending'});
-  const[eqRes,tkRes,rtRes]=await Promise.all([
-    fetchSheet(SHEETS.equipment,'eq'),
-    fetchSheet(SHEETS.tasks,'tk'),
-    fetchSheet(SHEETS.rates,'rt'),
-  ]);
+  const[eqRes,tkRes,rtRes]=await Promise.all([fetchSheet(SHEETS.equipment,'eq'),fetchSheet(SHEETS.tasks,'tk'),fetchSheet(SHEETS.rates,'rt')]);
   setLoadStep('join','active');
   if(eqRes.ok&&rtRes.ok){
     EQUIPMENT=joinEquipmentRates(eqRes.rows,rtRes.rows);
-    let noRate=0;
-    Object.values(EQUIPMENT).forEach(arr=>arr.forEach(e=>{if(!e.sqft)noRate++;}));
+    let noRate=0;Object.values(EQUIPMENT).forEach(arr=>arr.forEach(e=>{if(!e.sqft)noRate++;}));
     if(noRate>0)dataWarnings.push(noRate+' equipment entr'+(noRate===1?'y':'ies')+' had no matching rate. Check category + size values match exactly between equipment and rates tabs.');
-    setLoadStep('join','done');
-    dataSource=(eqRes.ok&&tkRes.ok&&rtRes.ok)?'sheets':'partial';
-  }else{
-    setLoadStep('join','error');
-    dataSource='fallback';EQUIPMENT=FALLBACK_EQUIPMENT;
-    dataWarnings.push('Could not load from Google Sheets — using built-in fallback data.');
-  }
-  if(tkRes.ok){TASKS=tkRes.rows.filter(r=>isTrue(r.active)&&r.task_name).map(r=>r.task_name);}
-  else TASKS=FALLBACK_TASKS;
+    setLoadStep('join','done');dataSource=(eqRes.ok&&tkRes.ok&&rtRes.ok)?'sheets':'partial';
+  }else{setLoadStep('join','error');dataSource='fallback';EQUIPMENT=FALLBACK_EQUIPMENT;dataWarnings.push('Could not load from Google Sheets — using built-in fallback data.');}
+  if(tkRes.ok){TASKS=tkRes.rows.filter(r=>isTrue(r.active)&&r.task_name).map(r=>r.task_name);}else TASKS=FALLBACK_TASKS;
   if(!Object.keys(EQUIPMENT).length){EQUIPMENT=FALLBACK_EQUIPMENT;dataSource='fallback';}
   if(!TASKS.length)TASKS=FALLBACK_TASKS;
   render();
@@ -924,167 +695,62 @@ async function init(){
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║  FALLBACK DATA — START                                                       ║
-// ║  Used when Google Sheets is unreachable. Edit to keep offline version current║
-// ║                                                                              ║
-// ║  EQUIPMENT: size, model, sqft (sq ft/hr), mins (=60000/sqft), is_rider,     ║
-// ║             is_autonomous                                                    ║
-// ║  TO ADD AUTONOMOUS: set is_autonomous:true, is_rider:false                  ║
-// ║  TO UPDATE RATE: change sqft, set mins = 60000/sqft                         ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
-const FALLBACK_EQUIPMENT={
-  "Automatic Scrubber – Scrub / Wet Vacuum":[
-    {size:"13 inch E",model:"",sqft:6726,mins:8.92,is_rider:false,is_autonomous:false},
-    {size:"14 inch E",model:"Micromatic 14E",sqft:6726,mins:8.92,is_rider:false,is_autonomous:false},
-    {size:"17 inch B",model:"SC400 B",sqft:5917,mins:10.14,is_rider:false,is_autonomous:false},
-    {size:"17 inch E",model:"SC400 E",sqft:5917,mins:10.14,is_rider:false,is_autonomous:false},
-    {size:"20 inch ASC,B",model:"SC450",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},
-    {size:"20 inch ASC,B,D",model:"SC500 / Adfinity X20C",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},
-    {size:"20 inch Stand-on ASC,B,D",model:"SC1500REV or SC1500 D",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},
-    {size:"24 inch ASC,B,D",model:"Adfinity X24D",sqft:11132,mins:5.39,is_rider:false,is_autonomous:false},
-    {size:"26 inch ASC,B,D",model:"SC750/SC800 26D",sqft:11561,mins:5.19,is_rider:false,is_autonomous:false},
-    {size:"27 inch ASC,B",model:"",sqft:12526,mins:4.79,is_rider:false,is_autonomous:false},
-    {size:"28 inch ASC,B,D",model:"SC750 REV / Warrior 28D",sqft:13019,mins:4.61,is_rider:false,is_autonomous:false},
-    {size:"32 inch ASC,B,D",model:"Warrior 32D / SC800 32C",sqft:14851,mins:4.04,is_rider:false,is_autonomous:false},
-    {size:"34 inch ASC,B,D",model:"SC800 34D",sqft:15789,mins:3.80,is_rider:false,is_autonomous:false},
-    {size:"24 inch R,ASC,B",model:"",sqft:18519,mins:3.24,is_rider:true,is_autonomous:false},
-    {size:"26 inch R,ASC,B",model:"SC3000",sqft:18519,mins:3.24,is_rider:true,is_autonomous:false},
-    {size:"28 inch R,ASC,B",model:"Advenger 28\" / 2800 ST",sqft:17857,mins:3.36,is_rider:true,is_autonomous:false},
-    {size:"34 inch R,ASC,B",model:"Advenger X3405D / 3405D / 3400 ST",sqft:21661,mins:2.77,is_rider:true,is_autonomous:false},
-    {size:"35 inch R,ASC,B",model:"Adgressor 3520D",sqft:22371,mins:2.68,is_rider:true,is_autonomous:false},
-    {size:"38 inch R,ASC,B",model:"Adgressor 3820D",sqft:23371,mins:2.565,is_rider:true,is_autonomous:false},
-  ],
-  "Autonomous Scrubber":[
-    {size:"SC25 Autonomous",model:"Nilfisk SC25",sqft:9000,mins:6.67,is_rider:false,is_autonomous:true},
-  ],
-  "Autonomous Sweeper":[
-    {size:"VP25 Autonomous (Conservative)",model:"Nilfisk VP25",sqft:4300,mins:13.95,is_rider:false,is_autonomous:true},
-    {size:"VP25 Autonomous (Standard)",model:"Nilfisk VP25",sqft:6450,mins:9.30,is_rider:false,is_autonomous:true},
-  ],
-  "Single Disc \u2013 Scrub (175-190 RPM)":[
-    {size:"13 inch",model:"",sqft:1250,mins:48.0,is_rider:false,is_autonomous:false},
-    {size:"14 inch",model:"",sqft:1493,mins:40.19,is_rider:false,is_autonomous:false},
-    {size:"17 inch",model:"Pacesetter 17HD",sqft:1923,mins:31.20,is_rider:false,is_autonomous:false},
-    {size:"20 inch",model:"Pacesetter 20HD / 20TS / 20SD",sqft:2222,mins:27.00,is_rider:false,is_autonomous:false},
-  ],
-  "Wet Vacuuming":[
-    {size:"14 inch Wand",model:"VL500-35",sqft:2222,mins:27.00,is_rider:false,is_autonomous:false},
-    {size:"20 inch Wand",model:"",sqft:2381,mins:25.20,is_rider:false,is_autonomous:false},
-    {size:"24 inch Wand",model:"",sqft:2564,mins:23.40,is_rider:false,is_autonomous:false},
-    {size:"24 inch Air Scoop 12G",model:"VL500-55",sqft:2778,mins:21.60,is_rider:false,is_autonomous:false},
-    {size:"24 inch Air Scoop 16G",model:"VL500-75",sqft:3030,mins:19.80,is_rider:false,is_autonomous:false},
-    {size:"27 inch Air Scoop 12G",model:"",sqft:3333,mins:18.00,is_rider:false,is_autonomous:false},
-    {size:"27 inch Air Scoop 16G",model:"",sqft:3704,mins:16.20,is_rider:false,is_autonomous:false},
-    {size:"30 inch Air Scoop 12G",model:"",sqft:3704,mins:16.20,is_rider:false,is_autonomous:false},
-  ],
-  "Wet Mopping":[
-    {size:"16 oz Mop",model:"",sqft:1724,mins:34.80,is_rider:false,is_autonomous:false},
-    {size:"24 oz Mop",model:"",sqft:2564,mins:23.40,is_rider:false,is_autonomous:false},
-    {size:"32 oz Mop",model:"",sqft:3333,mins:18.00,is_rider:false,is_autonomous:false},
-  ],
-  "Single Disc Standard \u2013 Spray Clean/Buff":[
-    {size:"175 RPM / 13 inch",model:"",sqft:1333,mins:45.01,is_rider:false,is_autonomous:false},
-    {size:"175 RPM / 17 inch",model:"Pacesetter 17HD",sqft:1724,mins:34.80,is_rider:false,is_autonomous:false},
-    {size:"175 RPM / 20 inch",model:"Pacesetter 20HD / FM810",sqft:2000,mins:30.00,is_rider:false,is_autonomous:false},
-    {size:"175 RPM / 24 inch",model:"",sqft:2381,mins:25.20,is_rider:false,is_autonomous:false},
-  ],
-  "Single Disc Hi-Speed \u2013 Spray Clean":[
-    {size:"350 RPM / 17 inch",model:"",sqft:2381,mins:25.20,is_rider:false,is_autonomous:false},
-    {size:"350 RPM / 20 inch",model:"Pacesetter 20TS",sqft:3030,mins:19.80,is_rider:false,is_autonomous:false},
-  ],
-  "Burnish":[
-    {size:"1500 RPM / 17 inch E",model:"",sqft:8333,mins:7.20,is_rider:false,is_autonomous:false},
-    {size:"1500 RPM / 20 inch E",model:"Advolution 20",sqft:9091,mins:6.60,is_rider:false,is_autonomous:false},
-    {size:"2000 RPM / 20 inch E",model:"Advolution 20XP",sqft:10000,mins:6.00,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 20 inch P",model:"",sqft:16438,mins:3.65,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 21 inch P",model:"PBU 21",sqft:13953,mins:4.30,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 24 inch P",model:"",sqft:19672,mins:3.05,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 27 inch P",model:"PBU 27",sqft:22222,mins:2.70,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 20 inch B",model:"BU800 20B",sqft:17910,mins:3.35,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 20 inch B,D",model:"BU800 20BT",sqft:24000,mins:2.50,is_rider:false,is_autonomous:false},
-    {size:"2000+ RPM / 27 inch B,R",model:"Advolution 2710",sqft:32432,mins:1.85,is_rider:true,is_autonomous:false},
-  ],
-  "Dust Mop":[
-    {size:"23 inch Mop",model:"Dust Magnet",sqft:8333,mins:7.20,is_rider:false,is_autonomous:false},
-    {size:"36 inch Mop",model:"",sqft:12500,mins:4.80,is_rider:false,is_autonomous:false},
-    {size:"46 inch Mop",model:"Dust Magnet",sqft:16667,mins:3.60,is_rider:false,is_autonomous:false},
-    {size:"48 inch Mop",model:"",sqft:25000,mins:2.40,is_rider:false,is_autonomous:false},
-    {size:"59 inch Mop",model:"Dust Magnet",sqft:33333,mins:1.80,is_rider:false,is_autonomous:false},
-  ],
-  "Sweeping":[
-    {size:"24 inch Push Broom",model:"",sqft:3896,mins:15.40,is_rider:false,is_autonomous:false},
-    {size:"36 inch Push Broom",model:"",sqft:5556,mins:10.80,is_rider:false,is_autonomous:false},
-    {size:"26 inch Mechanical Push",model:"",sqft:15000,mins:4.00,is_rider:false,is_autonomous:false},
-    {size:"28 inch Powered B",model:"Terra 28B",sqft:15441,mins:3.89,is_rider:false,is_autonomous:false},
-    {size:"32 inch Powered B",model:"",sqft:17647,mins:3.40,is_rider:false,is_autonomous:false},
-    {size:"33 inch Powered B",model:"SW900",sqft:18182,mins:3.30,is_rider:false,is_autonomous:false},
-    {size:"32 inch Powered R,B",model:"",sqft:41958,mins:1.43,is_rider:true,is_autonomous:false},
-    {size:"34 inch Powered R,B",model:"",sqft:41958,mins:1.43,is_rider:true,is_autonomous:false},
-    {size:"36 inch Powered R,B",model:"",sqft:39474,mins:1.52,is_rider:true,is_autonomous:false},
-    {size:"46 inch Powered R,B",model:"Terra 4300",sqft:59406,mins:1.01,is_rider:true,is_autonomous:false},
-  ],
-  "Large Area Carpet Vac & Sweepers":[
-    {size:"28 inch Sweeper B",model:"Terra 28B",sqft:15441,mins:3.89,is_rider:false,is_autonomous:false},
-    {size:"32 inch Sweeper B",model:"",sqft:17647,mins:3.40,is_rider:false,is_autonomous:false},
-    {size:"33 inch Sweeper B",model:"SW900",sqft:18182,mins:3.30,is_rider:false,is_autonomous:false},
-    {size:"34 inch Sweeper B",model:"",sqft:18750,mins:3.20,is_rider:false,is_autonomous:false},
-    {size:"28 inch Sweeper R,B",model:"ES4000 \u2013 Dry",sqft:30769,mins:1.95,is_rider:true,is_autonomous:false},
-    {size:"32 inch Sweeper R,B",model:"",sqft:41958,mins:1.43,is_rider:true,is_autonomous:false},
-    {size:"34 inch Sweeper R,B",model:"",sqft:41958,mins:1.43,is_rider:true,is_autonomous:false},
-    {size:"36 inch Sweeper R,B",model:"",sqft:39474,mins:1.52,is_rider:true,is_autonomous:false},
-    {size:"46 inch Sweeper R,B",model:"Terra 4300",sqft:59406,mins:1.01,is_rider:true,is_autonomous:false},
-  ],
-  "Upright Vacuum":[
-    {size:"12 inch SM",model:"ReliaVac 12 / 12DC / 12HP",sqft:10256,mins:5.85,is_rider:false,is_autonomous:false},
-    {size:"12 inch SM encased",model:"VU500 / Spectrum 12P/12H",sqft:10256,mins:5.85,is_rider:false,is_autonomous:false},
-    {size:"14 inch SM",model:"",sqft:12000,mins:5.00,is_rider:false,is_autonomous:false},
-    {size:"15 inch SM encased",model:"VU500 / Spectrum 15P",sqft:13333,mins:4.50,is_rider:false,is_autonomous:false},
-    {size:"16 inch SM",model:"ReliaVac 16HP",sqft:15000,mins:4.00,is_rider:false,is_autonomous:false},
-  ],
-  "Tank/Canister Vacuum":[
-    {size:'Tank 12" Tool',model:"GD930 / VP300 / VP600",sqft:2500,mins:24.00,is_rider:false,is_autonomous:false},
-    {size:'Tank 14" Tool',model:"",sqft:2941,mins:20.40,is_rider:false,is_autonomous:false},
-    {size:'Tank 16" Tool',model:"",sqft:2703,mins:22.20,is_rider:false,is_autonomous:false},
-    {size:'Back Vac 12" Tool',model:'Adgility XP w/ 12" Tool',sqft:7273,mins:8.25,is_rider:false,is_autonomous:false},
-    {size:'Back Vac 14" Tool',model:'Adgility XP w/ 14" Tool',sqft:7407,mins:8.10,is_rider:false,is_autonomous:false},
-    {size:'Back Vac 15" Tool',model:"",sqft:7453,mins:8.05,is_rider:false,is_autonomous:false},
-    {size:'Back Vac 16" Tool',model:"",sqft:7500,mins:8.00,is_rider:false,is_autonomous:false},
-  ],
-  "Extraction":[
-    {size:'Tank w/ 12" Std Tool',model:"ET610 / ET700",sqft:2222,mins:27.00,is_rider:false,is_autonomous:false},
-    {size:'Tank w/ 13" AquaWand',model:"ET610 / ET700",sqft:2500,mins:24.00,is_rider:false,is_autonomous:false},
-    {size:"12 inch E",model:"AquaClean 12ST",sqft:4000,mins:15.00,is_rider:false,is_autonomous:false},
-    {size:"14 inch E",model:"",sqft:4615,mins:13.00,is_rider:false,is_autonomous:false},
-    {size:"16 inch B \u2013 Restore",model:"AquaClean 16XP",sqft:1306,mins:45.94,is_rider:false,is_autonomous:false},
-    {size:"16 inch B \u2013 Lift",model:"AquaClean 16XP",sqft:2053,mins:29.23,is_rider:false,is_autonomous:false},
-    {size:"24 inch B/ASC \u2013 Restore",model:"AquaPLUS / Adphibian",sqft:2799,mins:21.44,is_rider:false,is_autonomous:false},
-    {size:"24 inch B/ASC \u2013 Lift",model:"AquaPLUS / Adphibian",sqft:5597,mins:10.72,is_rider:false,is_autonomous:false},
-    {size:"28 inch R,ASC",model:"ES4000",sqft:10000,mins:6.00,is_rider:true,is_autonomous:false},
-  ],
-  "Single-Disc Bonnet / Spray-on":[
-    {size:"17 inch",model:"Pacesetter 17HD",sqft:1111,mins:54.01,is_rider:false,is_autonomous:false},
-    {size:"20 inch",model:"Pacesetter 20HD / FM810",sqft:1270,mins:47.24,is_rider:false,is_autonomous:false},
-  ],
-  "Single-Disc Shampoo 175 RPM":[
-    {size:"17 inch",model:"Pacesetter 17HD",sqft:1000,mins:60.00,is_rider:false,is_autonomous:false},
-    {size:"20 inch",model:"Pacesetter 20HD / FM810",sqft:1033,mins:58.08,is_rider:false,is_autonomous:false},
-  ],
-  "Pre-Sweep & Scrub Combination":[
-    {size:"24 inch one-pass B,ASC",model:"Adphibian",sqft:11132,mins:5.39,is_rider:false,is_autonomous:false},
-    {size:"26 inch one-pass R,B,ASC",model:"",sqft:16575,mins:3.62,is_rider:true,is_autonomous:false},
-    {size:"28 inch one-pass R,B,ASC",model:"Advenger X2805C / 2805C",sqft:17857,mins:3.36,is_rider:true,is_autonomous:false},
-    {size:"32 inch one-pass R,ASC,B",model:"",sqft:20408,mins:2.94,is_rider:true,is_autonomous:false},
-  ],
-};
-const FALLBACK_TASKS=[
-  "High dusting","Scrub & recoat floors","Disinfect trash cans","Disinfect & detail rooms",
-  "Disinfect fixtures","Burnish","Restore restrooms","Clean vents","Detail dusting","Stairwells",
-  "Spot cleaning carpet","Spot cleaning glass","Spot cleaning stainless","Polish metal",
-  "Cleaning mirrors","Walk off mats","Polish furniture","Window blinds","Graffiti removal",
-  "Gum removal","Light fixture cleaning","Wash walls",
-];
+const FALLBACK_EQUIPMENT={"Automatic Scrubber \u2013 Scrub / Wet Vacuum":[{size:"13 inch E",model:"",sqft:6726,mins:8.92,is_rider:false,is_autonomous:false},{size:"14 inch E",model:"Micromatic 14E",sqft:6726,mins:8.92,is_rider:false,is_autonomous:false},{size:"17 inch B",model:"SC400 B",sqft:5917,mins:10.14,is_rider:false,is_autonomous:false},{size:"17 inch E",model:"SC400 E",sqft:5917,mins:10.14,is_rider:false,is_autonomous:false},{size:"20 inch ASC,B",model:"SC450",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},{size:"20 inch ASC,B,D",model:"SC500 / Adfinity X20C",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},{size:"20 inch Stand-on ASC,B,D",model:"SC1500REV or SC1500 D",sqft:9274,mins:6.47,is_rider:false,is_autonomous:false},{size:"24 inch ASC,B,D",model:"Adfinity X24D",sqft:11132,mins:5.39,is_rider:false,is_autonomous:false},{size:"26 inch ASC,B,D",model:"SC750/SC800 26D",sqft:11561,mins:5.19,is_rider:false,is_autonomous:false},{size:"27 inch ASC,B",model:"",sqft:12526,mins:4.79,is_rider:false,is_autonomous:false},{size:"28 inch ASC,B,D",model:"SC750 REV / Warrior 28D",sqft:13019,mins:4.61,is_rider:false,is_autonomous:false},{size:"32 inch ASC,B,D",model:"Warrior 32D / SC800 32C",sqft:14851,mins:4.04,is_rider:false,is_autonomous:false},{size:"34 inch ASC,B,D",model:"SC800 34D",sqft:15789,mins:3.80,is_rider:false,is_autonomous:false},{size:"24 inch R,ASC,B",model:"",sqft:18519,mins:3.24,is_rider:true,is_autonomous:false},{size:"26 inch R,ASC,B",model:"SC3000",sqft:18519,mins:3.24,is_rider:true,is_autonomous:false},{size:"28 inch R,ASC,B",model:'Advenger 28" / 2800 ST',sqft:17857,mins:3.36,is_rider:true,is_autonomous:false},{size:"34 inch R,ASC,B",model:"Advenger X3405D / 3405D / 3400 ST",sqft:21661,mins:2.77,is_rider:true,is_autonomous:false},{size:"35 inch R,ASC,B",model:"Adgressor 3520D",sqft:22371,mins:2.68,is_rider:true,is_autonomous:false},{size:"38 inch R,ASC,B",model:"Adgressor 3820D",sqft:23371,mins:2.565,is_rider:true,is_autonomous:false}],"Autonomous Scrubber":[{size:"SC25 Autonomous",model:"Nilfisk SC25",sqft:9000,mins:6.67,is_rider:false,is_autonomous:true}],"Autonomous Sweeper":[{size:"VP25 Autonomous (Conservative)",model:"Nilfisk VP25",sqft:4300,mins:13.95,is_rider:false,is_autonomous:true},{size:"VP25 Autonomous (Standard)",model:"Nilfisk VP25",sqft:6450,mins:9.30,is_rider:false,is_autonomous:true}],"Wet Mopping":[{size:"16 oz Mop",model:"",sqft:1724,mins:34.80,is_rider:false,is_autonomous:false},{size:"24 oz Mop",model:"",sqft:2564,mins:23.40,is_rider:false,is_autonomous:false},{size:"32 oz Mop",model:"",sqft:3333,mins:18.00,is_rider:false,is_autonomous:false}],"Sweeping":[{size:"24 inch Push Broom",model:"",sqft:3896,mins:15.40,is_rider:false,is_autonomous:false},{size:"28 inch Powered B",model:"Terra 28B",sqft:15441,mins:3.89,is_rider:false,is_autonomous:false},{size:"32 inch Powered R,B",model:"",sqft:41958,mins:1.43,is_rider:true,is_autonomous:false},{size:"46 inch Powered R,B",model:"Terra 4300",sqft:59406,mins:1.01,is_rider:true,is_autonomous:false}]};
+const FALLBACK_TASKS=["High dusting","Scrub & recoat floors","Disinfect trash cans","Disinfect & detail rooms","Disinfect fixtures","Burnish","Restore restrooms","Clean vents","Detail dusting","Stairwells","Spot cleaning carpet","Spot cleaning glass","Spot cleaning stainless","Polish metal","Cleaning mirrors","Walk off mats","Polish furniture","Window blinds","Graffiti removal","Gum removal","Light fixture cleaning","Wash walls"];
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║  FALLBACK DATA — END                                                         ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
+// ── GLOBAL TOOLTIP ───────────────────────────────────────────────────────────
+// The tooltip div lives directly on <body> — completely outside the app's
+// stacking contexts, sticky header, and any overflow:hidden ancestors.
+// Icons carry their text in data-tip="..."; JS positions the shared box.
+(function(){
+  const tip = document.getElementById('globalTooltip');
+  let hideTimer = null;
+
+  function show(icon) {
+    const text = icon.getAttribute('data-tip');
+    if (!text) return;
+    clearTimeout(hideTimer);
+    tip.textContent = text;
+    tip.style.display = 'block';
+    tip.style.opacity = '0';
+
+    // Measure after display:block so offsetWidth/Height are real
+    requestAnimationFrame(function() {
+      const r = icon.getBoundingClientRect();
+      const tw = tip.offsetWidth;
+      const th = tip.offsetHeight;
+      let left = r.left + r.width / 2 - tw / 2;
+      let top  = r.top - th - 10;
+      // clamp horizontally
+      left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+      // flip below if would go above viewport
+      if (top < 8) top = r.bottom + 10;
+      tip.style.left = left + 'px';
+      tip.style.top  = top  + 'px';
+      tip.style.transition = 'opacity 0.15s';
+      tip.style.opacity = '1';
+    });
+  }
+
+  function hide() {
+    hideTimer = setTimeout(function() {
+      tip.style.opacity = '0';
+      setTimeout(function(){ tip.style.display = 'none'; }, 150);
+    }, 80);
+  }
+
+  document.addEventListener('mouseover', function(e) {
+    const icon = e.target.closest('.tooltip-icon[data-tip]');
+    if (icon) show(icon);
+  });
+  document.addEventListener('mouseout', function(e) {
+    const icon = e.target.closest('.tooltip-icon[data-tip]');
+    if (icon) hide();
+  });
+})();
 init();
 </script>
 </body>
