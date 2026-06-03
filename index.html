@@ -470,13 +470,13 @@ function renderStep2(){
     h+='<div class="form-grid" style="margin-top:16px;"><div class="field"><label>Cleanable Sq Ft</label><input type="number" onchange="setPairVal('+pi+',\'sqFt\',this.value)" value="'+pair.sqFt+'"><span class="hint">Total cleanable area per cleaning</span></div><div class="field"><label>Cleanings per '+state.period+'</label><input type="number" onchange="setPairVal('+pi+',\'cleaningsPerPeriod\',this.value)" value="'+pair.cleaningsPerPeriod+'"></div></div>';
 
     // Rider row with tooltip
-    if(showRider)h+='<div class="rider-row"><label><span class="tooltip-wrap"><strong>Rider Bonus Productivity</strong> '+RIDER_TOOLTIP+'</span><br><span style="opacity:0.7;font-size:0.78rem;">% added on top of ISSA rate — hover <strong>?</strong> for explanation</span></label><input type="range" min="0" max="50" step="5" value="'+state.riderBonus+'" oninput="state.riderBonus=parseInt(this.value);document.getElementById(\'riderValDisplay\').textContent=this.value+\'%\';"><div class="val" id="riderValDisplay">'+state.riderBonus+'%</div></div>';
+    if(showRider)h+='<div class="rider-row"><label><span class="tooltip-wrap"><strong>Rider Bonus Productivity</strong> '+RIDER_TOOLTIP+'</span><br><span style="opacity:0.7;font-size:0.78rem;">% added on top of ISSA rate — hover <strong>?</strong> for explanation</span></label><input type="range" min="0" max="50" step="5" value="'+state.riderBonus+'" oninput="state.riderBonus=parseInt(this.value);document.getElementById(\'riderValDisplay\').textContent=this.value+\'%\';updateRiderDisplays();"><div class="val" id="riderValDisplay">'+state.riderBonus+'%</div></div>';
 
     if(ex&&pr&&!pr.is_autonomous){
       h+='<div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">';
       h+='<div class="rate-display" style="flex:1;">Time saved / cleaning: <span>'+fmtH(pairResult.savingsPerCleaning)+'</span></div>';
-      h+='<div class="rate-display" style="flex:1;">Time saved / '+state.period+': <span>'+fmtH(pairResult.timePerPeriod)+'</span></div>';
-      h+='<div class="rate-display" style="flex:1;">Improvement: <span>'+fmtP(pairResult.savingsPct)+'</span></div>';
+      h+='<div class="rate-display" style="flex:1;">Time saved / '+state.period+': <span id="pairTimeSaved'+pi+'">'+fmtH(pairResult.timePerPeriod)+'</span></div>';
+      h+='<div class="rate-display" style="flex:1;">Improvement: <span id="pairImprov'+pi+'">'+fmtP(pairResult.savingsPct)+'</span></div>';
       h+='</div>';
     }
     h+='</div>';
@@ -488,7 +488,7 @@ function renderStep2(){
 
   const anyComplete=state.pairs.some(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx));
   if(anyComplete){
-    h+='<div class="summary-bar"><div class="sb-item"><div class="sb-label">Total Procedures</div><div class="sb-val">'+state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx)).length+'</div></div><div class="sb-item"><div class="sb-label">Total Time Saved / '+state.period+'</div><div class="sb-val">'+fmtH(r.totalTimePerPeriod)+'</div></div><div class="sb-item"><div class="sb-label">Avg Improvement</div><div class="sb-val">'+fmtP(r.avgSavingsPct)+'</div></div><div class="sb-item"><div class="sb-label">Period</div><div class="sb-val">'+state.period+'</div></div></div>';
+    h+='<div class="summary-bar"><div class="sb-item"><div class="sb-label">Total Procedures</div><div class="sb-val" id="sumProcCount">'+state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx)).length+'</div></div><div class="sb-item"><div class="sb-label">Total Time Saved / '+state.period+'</div><div class="sb-val" id="sumTimeSaved">'+fmtH(r.totalTimePerPeriod)+'</div></div><div class="sb-item"><div class="sb-label">Avg Improvement</div><div class="sb-val" id="sumAvgImprov">'+fmtP(r.avgSavingsPct)+'</div></div><div class="sb-item"><div class="sb-label">Period</div><div class="sb-val">'+state.period+'</div></div></div>';
   }
   const nextLabel=hasAutonomousPrescribed()?'Continue to Autonomous Evaluation →':'Continue to Payback →';
   h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">'+nextLabel+'</button></div>';
@@ -502,11 +502,11 @@ function renderStepAuto(){
   if(a.autoEquip){h+='<div class="auto-badge">🤖 '+esc(a.autoEquip.size)+(a.autoEquip.model?' — '+esc(a.autoEquip.model):'')+' · '+a.autoEquip.sqft.toLocaleString()+' sq ft/hr practical</div>';}
   h+='<div class="auto-card"><div class="auto-card-title">Deployment Configuration</div>';
   h+='<div class="form-grid"><div class="field"><label>Sq Ft per Autonomous Run</label><input type="number" id="autoSqFtPerRun" value="'+state.autoSqFtPerRun+'"><span class="hint">Area the robot cleans per deployment</span></div><div class="field"><label>Runs per '+state.period+'</label><input type="number" id="autoCleaningsPerPeriod" value="'+state.autoCleaningsPerPeriod+'"></div><div class="field"><label>Maintenance Time per Run (hrs)</label><input type="number" id="autoMaintenanceHrs" value="'+state.autoMaintenanceHrs+'" step="0.25"><span class="hint">Prep, refill, end-of-run tasks (default 0.75)</span></div></div>';
-  h+='<div class="auto-supervision-row"><label><span class="tooltip-wrap"><strong>Supervision Required</strong> <span class="tooltip-icon" data-tip="'+AUTO_SUP_TIP_TEXT+'">?</span></span><br><span style="opacity:0.7;font-size:0.78rem;">% of machine run time operator must be present (default 15%)</span></label><input type="range" id="autoSupervisionRange" min="5" max="40" step="5" value="'+state.autoSupervisionPct+'" oninput="state.autoSupervisionPct=parseInt(this.value);document.getElementById(\'autoSupVal\').textContent=this.value+\'%\';"><div class="val" id="autoSupVal">'+state.autoSupervisionPct+'%</div></div>';
+  h+='<div class="auto-supervision-row"><label><span class="tooltip-wrap"><strong>Supervision Required</strong> <span class="tooltip-icon" data-tip="'+AUTO_SUP_TIP_TEXT+'">?</span></span><br><span style="opacity:0.7;font-size:0.78rem;">% of machine run time operator must be present (default 15%)</span></label><input type="range" id="autoSupervisionRange" min="5" max="40" step="5" value="'+state.autoSupervisionPct+'" oninput="state.autoSupervisionPct=parseInt(this.value);document.getElementById(\'autoSupVal\').textContent=this.value+\'%\';updateAutoDisplays();"><div class="val" id="autoSupVal">'+state.autoSupervisionPct+'%</div></div>';
   h+='</div>';
-  h+='<div class="auto-card"><div class="auto-card-title">Labor Time Comparison — Per Run</div><div class="auto-comparison"><div class="auto-comp-card existing"><div class="auto-comp-label">Manual / Existing</div><div class="auto-comp-val">'+fmtH(a.conventionalTimePerCleaning)+'</div><div class="auto-comp-sub">Operator fully occupied for entire cleaning</div></div><div class="auto-comp-card autonomous"><div class="auto-comp-label">🤖 Autonomous</div><div class="auto-comp-val">'+fmtH(a.operatorTimePerCleaning)+'</div><div class="auto-comp-sub">'+fmtH(a.supervisionTimePerCleaning)+' supervision + '+fmtH(a.maintenancePerCleaning)+' maintenance</div></div></div></div>';
-  h+='<div class="auto-metric-grid"><div class="auto-metric"><div class="auto-metric-label">Machine Run Time / Run</div><div class="auto-metric-value">'+fmtH(a.machineRunTime)+'</div><div class="auto-metric-sub">'+a.sqFtPerRun.toLocaleString()+' sq ft ÷ '+a.sqftPerHr.toLocaleString()+' sq ft/hr</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Operator Time Freed / Run</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerCleaning)+'</div><div class="auto-metric-sub">vs '+fmtH(a.conventionalTimePerCleaning)+' conventional</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Labor Freed / '+state.period+'</div><div class="auto-metric-value">'+fmtH(a.laborSavedPerPeriod)+'</div><div class="auto-metric-sub">'+a.cleaningsPerPeriod+' runs × '+fmtH(a.laborSavedPerCleaning)+' saved</div></div></div>';
-  h+='<div class="auto-summary-bar"><div class="sb-item"><div class="sb-label">Supervision %</div><div class="sb-val">'+state.autoSupervisionPct+'%</div></div><div class="sb-item"><div class="sb-label">Machine Run / cleaning</div><div class="sb-val">'+fmtH(a.machineRunTime)+'</div></div><div class="sb-item"><div class="sb-label">Operator Freed / Run</div><div class="sb-val">'+fmtH(a.laborSavedPerCleaning)+'</div></div><div class="sb-item"><div class="sb-label">Freed / '+state.period+'</div><div class="sb-val">'+fmtH(a.laborSavedPerPeriod)+'</div></div></div>';
+  h+='<div class="auto-card"><div class="auto-card-title">Labor Time Comparison — Per Run</div><div class="auto-comparison"><div class="auto-comp-card existing"><div class="auto-comp-label">Manual / Existing</div><div class="auto-comp-val" id="autoConvTime">'+fmtH(a.conventionalTimePerCleaning)+'</div><div class="auto-comp-sub">Operator fully occupied for entire cleaning</div></div><div class="auto-comp-card autonomous"><div class="auto-comp-label">🤖 Autonomous</div><div class="auto-comp-val" id="autoOpTime">'+fmtH(a.operatorTimePerCleaning)+'</div><div class="auto-comp-sub"><span id="autoSupTime">'+fmtH(a.supervisionTimePerCleaning)+'</span> supervision + <span id="autoMaintTime">'+fmtH(a.maintenancePerCleaning)+'</span> maintenance</div></div></div></div>';
+  h+='<div class="auto-metric-grid"><div class="auto-metric"><div class="auto-metric-label">Machine Run Time / Run</div><div class="auto-metric-value" id="autoMetricRunTime">'+fmtH(a.machineRunTime)+'</div><div class="auto-metric-sub">'+a.sqFtPerRun.toLocaleString()+' sq ft ÷ '+a.sqftPerHr.toLocaleString()+' sq ft/hr</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Operator Time Freed / Run</div><div class="auto-metric-value" id="autoMetricFreedRun">'+fmtH(a.laborSavedPerCleaning)+'</div><div class="auto-metric-sub">vs <span id="autoMetricConvSub">'+fmtH(a.conventionalTimePerCleaning)+'</span> conventional</div></div><div class="auto-metric highlight"><div class="auto-metric-label">Labor Freed / '+state.period+'</div><div class="auto-metric-value" id="autoMetricFreedPeriod">'+fmtH(a.laborSavedPerPeriod)+'</div><div class="auto-metric-sub"><span id="autoMetricRunsSub">'+a.cleaningsPerPeriod+'</span> runs × <span id="autoMetricSavedSub">'+fmtH(a.laborSavedPerCleaning)+'</span> saved</div></div></div>';
+  h+='<div class="auto-summary-bar"><div class="sb-item"><div class="sb-label">Supervision %</div><div class="sb-val" id="autoSupPct">'+state.autoSupervisionPct+'%</div></div><div class="sb-item"><div class="sb-label">Machine Run / cleaning</div><div class="sb-val" id="autoMachineRun">'+fmtH(a.machineRunTime)+'</div></div><div class="sb-item"><div class="sb-label">Operator Freed / Run</div><div class="sb-val" id="autoOpFreed">'+fmtH(a.laborSavedPerCleaning)+'</div></div><div class="sb-item"><div class="sb-label">Freed / '+state.period+'</div><div class="sb-val" id="autoFreedPeriod">'+fmtH(a.laborSavedPerPeriod)+'</div></div></div>';
   h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-primary" onclick="nextStep()">Continue to Payback →</button></div>';
   return h;
 }
@@ -725,6 +725,59 @@ const HARDCODED_EQUIPMENT={"Automatic Scrubber – Scrub / Wet Vacuum":[{"size":
     if (icon) hide();
   });
 })();
+// ── SLIDER LIVE-UPDATE PATCHERS ───────────────────────────────────────────────
+// These patch only the affected display elements on slider input so the DOM
+// is not rebuilt (which would destroy slider focus mid-drag).
+function updateRiderDisplays(){
+  const r=calc();
+  // per-pair spans
+  state.pairs.forEach(function(pair,pi){
+    const p=calcPair(pair);
+    const ts=document.getElementById('pairTimeSaved'+pi);
+    const imp=document.getElementById('pairImprov'+pi);
+    if(ts)ts.textContent=fmtH(p.timePerPeriod);
+    if(imp)imp.textContent=fmtP(p.savingsPct);
+  });
+  // summary bar
+  const st=document.getElementById('sumTimeSaved');
+  const si=document.getElementById('sumAvgImprov');
+  if(st)st.textContent=fmtH(r.totalTimePerPeriod);
+  if(si)si.textContent=fmtP(r.avgSavingsPct);
+}
+
+function updateAutoDisplays(){
+  const a=calcAuto();
+  // bottom summary bar
+  const pct=document.getElementById('autoSupPct');
+  const run=document.getElementById('autoMachineRun');
+  const freed=document.getElementById('autoOpFreed');
+  const period=document.getElementById('autoFreedPeriod');
+  if(pct)pct.textContent=state.autoSupervisionPct+'%';
+  if(run)run.textContent=fmtH(a.machineRunTime);
+  if(freed)freed.textContent=fmtH(a.laborSavedPerCleaning);
+  if(period)period.textContent=fmtH(a.laborSavedPerPeriod);
+  // labor time comparison card
+  const convTime=document.getElementById('autoConvTime');
+  const opTime=document.getElementById('autoOpTime');
+  const supTime=document.getElementById('autoSupTime');
+  const maintTime=document.getElementById('autoMaintTime');
+  if(convTime)convTime.textContent=fmtH(a.conventionalTimePerCleaning);
+  if(opTime)opTime.textContent=fmtH(a.operatorTimePerCleaning);
+  if(supTime)supTime.textContent=fmtH(a.supervisionTimePerCleaning);
+  if(maintTime)maintTime.textContent=fmtH(a.maintenancePerCleaning);
+  // three metric cards
+  const mRun=document.getElementById('autoMetricRunTime');
+  const mFreedRun=document.getElementById('autoMetricFreedRun');
+  const mConvSub=document.getElementById('autoMetricConvSub');
+  const mFreedPeriod=document.getElementById('autoMetricFreedPeriod');
+  const mSavedSub=document.getElementById('autoMetricSavedSub');
+  if(mRun)mRun.textContent=fmtH(a.machineRunTime);
+  if(mFreedRun)mFreedRun.textContent=fmtH(a.laborSavedPerCleaning);
+  if(mConvSub)mConvSub.textContent=fmtH(a.conventionalTimePerCleaning);
+  if(mFreedPeriod)mFreedPeriod.textContent=fmtH(a.laborSavedPerPeriod);
+  if(mSavedSub)mSavedSub.textContent=fmtH(a.laborSavedPerCleaning);
+}
+
 init();
 </script>
 </body>
