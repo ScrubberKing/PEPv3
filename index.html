@@ -561,7 +561,7 @@ function renderStepProposal(){
   if(leaseAmt>0){h+='<div class="sc-net '+netClass+'"><div class="sc-net-label">'+(netMonthly>=0?'✓ Your savings MORE than cover the payment. Net gain: ':'⚠ Payment exceeds monthly savings by: ')+'</div><div class="sc-net-val">'+(netMonthly>=0?'+':'')+fmtC(netMonthly)+' / mo</div></div>';}
   h+='</div></div>';
   h+='<div class="card"><div class="card-title">Equipment Quote</div><div class="proposal-col-header"><div>Qty</div><div>Description</div><div class="col-order">Order #</div><div>Unit Cost</div><div style="text-align:right;">Total</div></div><div class="proposal-items">'+itemRows+'</div><button class="add-btn" onclick="addPI()">+ Add Line Item</button><div class="proposal-totals"><div class="total-row"><span class="tl">Savings / Month</span><span class="tv">'+fmtC(r.savingsPerMonth)+'</span></div><div class="total-row"><span class="tl">Total Savings Over Life</span><span class="tv">'+fmtC(r.totalSavings)+'</span></div><div class="total-row grand"><span class="tl">Investment Total</span><span class="tv">'+fmtC(r.proposalTotal)+'</span></div></div></div>';
-  h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-print" onclick="window.print()">🖨 Print Proposal</button></div>';
+  h+='<div class="nav-bar"><button class="btn btn-secondary" onclick="prevStep()">← Back</button><button class="btn btn-print" onclick="openPrintView()">🖨 Generate Print View</button></div>';
   h+=renderCalcAudit();
   return h;
 }
@@ -656,6 +656,174 @@ function addPI(){state.proposalItems.push({qty:'',desc:'',order:'',unitCost:''})
 function nextStep(){if(state.step<maxStep()){state.step++;render();window.scrollTo(0,0);}}
 function prevStep(){if(state.step>1){state.step--;render();window.scrollTo(0,0);}}
 function goStep(s){state.step=s;render();window.scrollTo(0,0);}
+
+function openPrintView(){
+  const r=calc();
+  const a=hasAutonomousPrescribed()?calcAuto():null;
+  const completePairs=state.pairs.filter(p=>getEquip(p.existingCategory,p.existingEquipIdx)&&getEquip(p.prescribedCategory,p.prescribedEquipIdx));
+  const leaseAmt=parseFloat(state.leasePayment)||0;
+  const netMonthly=r.savingsPerMonth-leaseAmt;
+  const pyC=r.paybackYears<=3?'#065F46':r.paybackYears<=5?'#92400E':'#991B1B';
+  const assignedTasks=Object.entries(state.taskHours).filter(function(e){return parseFloat(e[1])>0;});
+
+  function metBox(label,val,sub,accent){
+    return '<div style="border:1px solid #C8CDD4;border-radius:10px;padding:16px;position:relative;overflow:hidden;background:#F0F1F3;">'
+      +'<div style="position:absolute;top:0;left:0;right:0;height:3px;background:'+accent+';"></div>'
+      +'<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5A6472;font-family:monospace;margin-bottom:6px;">'+label+'</div>'
+      +'<div style="font-size:1.6rem;font-weight:300;color:#1A2533;line-height:1;margin-bottom:4px;">'+val+'</div>'
+      +'<div style="font-size:0.72rem;color:#5A6472;">'+sub+'</div>'
+      +'</div>';
+  }
+
+  // procedure rows
+  var procRows='';
+  completePairs.forEach(function(pair,pi){
+    var ex=getEquip(pair.existingCategory,pair.existingEquipIdx);
+    var pr=getEquip(pair.prescribedCategory,pair.prescribedEquipIdx);
+    var pRes=calcPair(pair);
+    var autoLabel=pr.is_autonomous?'<span style="background:#EDE9FE;color:#7C3AED;font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:6px;font-family:monospace;">🤖 AUTONOMOUS</span>':'';
+    var savedLine=pr.is_autonomous
+      ?'<span style="color:#7C3AED;">See autonomous analysis below</span>'
+      :fmtH(pRes.timePerPeriod)+' saved / '+state.period+' &nbsp;·&nbsp; '+fmtP(pRes.savingsPct)+' improvement';
+    procRows+='<tr style="border-bottom:1px solid #E5E7EB;">'
+      +'<td style="padding:10px 8px;font-size:0.82rem;color:#5A6472;font-weight:500;">'+(completePairs.length>1?pi+1:'')+'</td>'
+      +'<td style="padding:10px 8px;"><div style="font-size:0.85rem;font-weight:500;">'+esc(ex.size)+(ex.model?' – '+esc(ex.model):'')+'</div><div style="font-size:0.75rem;color:#5A6472;">'+ex.sqft.toLocaleString()+' sq ft/hr</div></td>'
+      +'<td style="padding:10px 8px;text-align:center;color:#5A6472;">→</td>'
+      +'<td style="padding:10px 8px;"><div style="font-size:0.85rem;font-weight:500;">'+esc(pr.size)+(pr.model?' – '+esc(pr.model):'')+autoLabel+'</div><div style="font-size:0.75rem;color:#5A6472;">'+pr.sqft.toLocaleString()+' sq ft/hr</div></td>'
+      +'<td style="padding:10px 8px;font-family:monospace;font-size:0.8rem;color:#1B6CA8;">'+savedLine+'</td>'
+      +'</tr>';
+  });
+
+  // autonomous block
+  var autoBlock='';
+  if(a){
+    autoBlock='<div style="margin-top:24px;border:2px solid #7C3AED;border-radius:10px;padding:20px;">'
+      +'<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7C3AED;font-family:monospace;margin-bottom:14px;">🤖 Autonomous Evaluation</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">'
+      +metBox('Machine Run / Run',fmtH(a.machineRunTime),a.sqFtPerRun.toLocaleString()+' sq ft ÷ '+a.sqftPerHr.toLocaleString()+' sq ft/hr','#7C3AED')
+      +metBox('Operator Freed / Run',fmtH(a.laborSavedPerCleaning),'vs '+fmtH(a.conventionalTimePerCleaning)+' conventional','#E9C46A')
+      +metBox('Labor Freed / '+state.period,fmtH(a.laborSavedPerPeriod),a.cleaningsPerPeriod+' runs × '+fmtH(a.laborSavedPerCleaning),'#E9C46A')
+      +'</div>'
+      +'<div style="font-size:0.8rem;color:#5A6472;">'+state.autoSupervisionPct+'% supervision &nbsp;·&nbsp; '+fmtH(a.maintenancePerCleaning)+' maintenance/run &nbsp;·&nbsp; Autonomous operator time: '+fmtH(a.operatorTimePerCleaning)+' vs '+fmtH(a.conventionalTimePerCleaning)+' conventional</div>'
+      +'</div>';
+  }
+
+  // labor redeployment — includes ALL tasks with a value, even 0 entered explicitly
+  var tasksBlock='';
+  if(assignedTasks.length>0){
+    var taskRows=assignedTasks.map(function(t){
+      return '<tr style="border-bottom:1px solid #E5E7EB;">'
+        +'<td style="padding:8px;font-size:0.82rem;">'+esc(t[0])+'</td>'
+        +'<td style="padding:8px;font-family:monospace;font-size:0.82rem;text-align:right;color:#1B6CA8;">'+parseFloat(t[1]).toFixed(2)+' hrs</td>'
+        +'</tr>';
+    }).join('');
+    tasksBlock='<div style="margin-top:0;">'
+      +'<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5A6472;font-family:monospace;border-bottom:2px solid #1B6CA8;padding-bottom:6px;margin-bottom:12px;">Labor Redeployment — '+state.period+'</div>'
+      +'<table style="width:100%;border-collapse:collapse;">'
+      +'<thead><tr style="border-bottom:2px solid #E5E7EB;"><th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Task</th><th style="padding:6px 8px;font-size:0.7rem;text-align:right;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Hours / '+state.period+'</th></tr></thead>'
+      +'<tbody>'+taskRows+'</tbody>'
+      +'<tfoot><tr style="border-top:2px solid #1A2533;"><td style="padding:8px;font-size:0.82rem;font-weight:700;">Total Redeployed</td><td style="padding:8px;font-family:monospace;font-size:0.82rem;font-weight:700;text-align:right;color:#1B6CA8;">'+r.totalTaskHours.toFixed(2)+' hrs</td></tr></tfoot>'
+      +'</table>'
+      +'</div>';
+  }
+
+  // quote line items
+  var filledItems=state.proposalItems.filter(function(i){return i.desc||i.qty;});
+  var quoteBlock='';
+  if(filledItems.length>0){
+    var qRows=filledItems.map(function(item){
+      var t=(parseFloat(item.qty)||0)*(parseFloat(item.unitCost)||0);
+      return '<tr style="border-bottom:1px solid #E5E7EB;">'
+        +'<td style="padding:8px;font-size:0.82rem;text-align:center;">'+esc(item.qty||'')+'</td>'
+        +'<td style="padding:8px;font-size:0.82rem;">'+esc(item.desc||'')+'</td>'
+        +'<td style="padding:8px;font-size:0.82rem;font-family:monospace;">'+esc(item.order||'')+'</td>'
+        +'<td style="padding:8px;font-size:0.82rem;font-family:monospace;text-align:right;">'+(item.unitCost?fmtC(parseFloat(item.unitCost)):'')+'</td>'
+        +'<td style="padding:8px;font-size:0.82rem;font-family:monospace;text-align:right;">'+(t>0?fmtC(t):'—')+'</td>'
+        +'</tr>';
+    }).join('');
+    quoteBlock='<div style="margin-top:0;">'
+      +'<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#5A6472;font-family:monospace;border-bottom:2px solid #1B6CA8;padding-bottom:6px;margin-bottom:12px;">Equipment Quote</div>'
+      +'<table style="width:100%;border-collapse:collapse;">'
+      +'<thead><tr style="border-bottom:2px solid #E5E7EB;"><th style="padding:6px 8px;font-size:0.7rem;text-align:center;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:50px;">Qty</th><th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Description</th><th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Order #</th><th style="padding:6px 8px;font-size:0.7rem;text-align:right;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Unit Cost</th><th style="padding:6px 8px;font-size:0.7rem;text-align:right;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Total</th></tr></thead>'
+      +'<tbody>'+qRows+'</tbody>'
+      +'<tfoot><tr style="border-top:2px solid #1A2533;"><td colspan="4" style="padding:10px 8px;font-size:0.85rem;font-weight:700;text-align:right;">Investment Total</td><td style="padding:10px 8px;font-family:monospace;font-size:0.95rem;font-weight:700;text-align:right;color:#1B6CA8;">'+fmtC(r.proposalTotal)+'</td></tr></tfoot>'
+      +'</table>'
+      +'</div>';
+  }
+
+  var html='<!DOCTYPE html><html lang="en"><head>'
+    +'<meta charset="UTF-8">'
+    +'<title>ROI Proposal — '+esc(state.facilityName||'Nilfisk')+'</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">'
+    +'<style>'
+    +'*{box-sizing:border-box;margin:0;padding:0;}'
+    +'body{font-family:"Roboto",sans-serif;color:#1A2533;background:white;padding:32px 40px;max-width:900px;margin:0 auto;}'
+    +'.print-header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:20px;border-bottom:3px solid #1A2533;margin-bottom:24px;}'
+    +'.print-logo{font-size:1.6rem;font-weight:700;letter-spacing:4px;color:#1A2533;}'
+    +'.print-logo span{font-size:0.75rem;font-weight:400;display:block;letter-spacing:1px;color:#5A6472;margin-top:2px;}'
+    +'.print-meta{text-align:right;font-size:0.8rem;color:#5A6472;line-height:1.8;}'
+    +'.print-meta strong{color:#1A2533;font-size:1rem;display:block;}'
+    +'section{margin-bottom:28px;}'
+    +'h2{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#5A6472;font-family:monospace;border-bottom:2px solid #1B6CA8;padding-bottom:6px;margin-bottom:14px;}'
+    +'.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}'
+    +'table{width:100%;border-collapse:collapse;}'
+    +'@media print{'
+    +'body{padding:0;}'
+    +'@page{margin:20mm 18mm;}'
+    +'section{break-inside:avoid;}'
+    +'}'
+    +'</style>'
+    +'</head><body>'
+    +'<div class="print-header">'
+    +'<div><div class="print-logo">NILFISK<span>ROI Proposal</span></div></div>'
+    +'<div class="print-meta">'
+    +'<strong>'+esc(state.facilityName||'—')+'</strong>'
+    +(state.contactPerson?esc(state.contactPerson)+'<br>':'')
+    +[state.city,state.stateAbbr,state.zip].filter(Boolean).join(', ')+(state.city||state.stateAbbr?'<br>':'')
+    +'Prepared by: '+esc(state.preparedBy||'—')+(state.dealership?' · '+esc(state.dealership):'')+'<br>'
+    +'Date: '+esc(state.date)
+    +'</div>'
+    +'</div>'
+    +'<section>'
+    +'<h2>Procedure Comparison</h2>'
+    +'<table><thead><tr style="border-bottom:2px solid #E5E7EB;">'
+    +'<th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;width:30px;">#</th>'
+    +'<th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Existing</th>'
+    +'<th style="padding:6px 8px;width:24px;"></th>'
+    +'<th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Nilfisk Prescribed</th>'
+    +'<th style="padding:6px 8px;font-size:0.7rem;text-align:left;color:#5A6472;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Result</th>'
+    +'</tr></thead><tbody>'+procRows+'</tbody></table>'
+    +autoBlock
+    +'</section>'
+    +'<section>'
+    +'<h2>ROI Summary</h2>'
+    +'<div class="metric-row">'
+    +metBox('Total Time Saved / '+state.period,fmtH(r.totalTimePerPeriod),'Across '+completePairs.length+' procedure'+(completePairs.length!==1?'s':''),'#1B6CA8')
+    +metBox('Annual Labor Savings',fmtC(r.annualSavings),'@ $'+state.hourlyLaborRate+'/hr loaded','#E9C46A')
+    +metBox('Payback Period',fmtY(r.paybackYears),fmtC(r.totalSavings)+' total over '+state.machineLife+' yr life',pyC)
+    +'</div>'
+    +'</section>'
+    +(leaseAmt>0
+      ?'<section><h2>Monthly Savings vs. Payment</h2>'
+       +'<div class="metric-row">'
+       +metBox('Monthly Labor Savings',fmtC(r.savingsPerMonth),'Annual savings ÷ 12','#065F46')
+       +metBox('Monthly Payment',fmtC(leaseAmt),'Lease / financing','#5A6472')
+       +metBox('Net Monthly Position',(netMonthly>=0?'+':'')+fmtC(netMonthly),netMonthly>=0?'Savings exceed payment':'Payment exceeds savings',netMonthly>=0?'#065F46':'#991B1B')
+       +'</div></section>'
+      :'')
+    +(tasksBlock?'<section>'+tasksBlock+'</section>':'')
+    +(quoteBlock?'<section>'+quoteBlock+'</section>':'')
+    +'<div style="margin-top:32px;padding-top:16px;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;font-size:0.72rem;color:#9CA3AF;">'
+    +'<span>Cleaning time rates: ISSA 612 Practical Performance Values. Actual results may vary.</span>'
+    +'<span>Nilfisk Americas · nilfisk.com</span>'
+    +'</div>'
+    +'<script>window.onload=function(){window.print();};<\/script>'
+    +'</body></html>';
+
+  var w=window.open('','_blank','width=960,height=800');
+  if(w){w.document.write(html);w.document.close();}
+  else{alert('Pop-up blocked. Please allow pop-ups for this page and try again.');}
+}
 
 function showLoading(){} // no-op — kept for any residual references
 function setLoadStep(){} // no-op
